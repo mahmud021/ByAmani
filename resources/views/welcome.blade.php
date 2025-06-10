@@ -22,27 +22,19 @@
     <body class="font-sans antialiased text-gray-900">
 
     <!-- Top Bar -->
-    <div class="bg-green-900 text-white text-sm">
-        <div class="container mx-auto px-6 flex items-center justify-between py-2">
-            <div class="flex items-center space-x-4">
-                <span><svg xmlns="http://www.w3.org/2000/svg" class="inline h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m5-9v9m4-9v9m3-9l2 9"/></svg>+001234567890</span>
-            </div>
-            <div>
-                <span>Get 50% Off on Selected Items |</span>
-                <a href="#" class="underline">Shop Now</a>
-            </div>
-            <div class="flex items-center space-x-4">
-                <select class="bg-green-900 text-white focus:outline-none">
-                    <option>Eng</option>
-                    <option>Fr</option>
-                </select>
-                <select class="bg-green-900 text-white focus:outline-none">
-                    <option>Location</option>
-                    <option>Nigeria</option>
-                </select>
-            </div>
+    <!-- Announcement Banner -->
+    <a class="group block bg-gray-100 hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 rounded-lg text-center transition duration-300" href="#">
+        <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+            <p class="me-2 inline-block text-sm text-gray-800">
+                Shop for everyone on your list with the By Amani Guide.
+            </p>
+            <span class="group-hover:underline decoration-2 inline-flex justify-center items-center gap-x-2 font-semibold text-blue-600 text-sm">
+      Shop now
+      <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </span>
         </div>
-    </div>
+    </a>
+    <!-- End Announcement Banner -->
 
     <!-- Navbar -->
     <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-3">
