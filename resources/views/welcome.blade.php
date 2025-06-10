@@ -29,13 +29,11 @@
     </span>
         </div>
     </a>
-    <!-- End Announcement Banner -->
-
     <!-- Navbar -->
     <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-3">
-        <nav class="max-w-[85rem] w-full mx-auto px-4 flex flex-wrap sm:flex-nowrap basis-full items-center justify-between">
+        <nav class="max-w-[85rem] w-full mx-auto px-4 font-sentient flex flex-wrap sm:flex-nowrap basis-full items-center justify-between">
             <!-- Brand -->
-            <a class="sm:order-1 flex-none text-2xl font-bold text-gray-900 focus:outline-none focus:opacity-80" href="#">By Amani</a>
+            <a class="sm:order-1 flex-none text-2xl font-telma font-bold text-gray-900 focus:outline-none focus:opacity-80" href="#">By Amani</a>
 
             <!-- Mobile Toggle + Auth Button -->
             <div class="sm:order-3 flex items-center gap-x-2">
@@ -82,8 +80,8 @@
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6 flex flex-col-reverse lg:flex-row items-center">
             <!-- Text Content -->
-            <div class="w-full lg:w-1/2 text-gray-900">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <div class="w-full lg:w-1/2 text-gray-900 font-sentient">
+                <h1 class="text-4xl md:text-5xl font-sentient mb-4">
                     Discover Your Signature Style
                 </h1>
                 <p class="mb-6 max-w-md">
@@ -111,7 +109,7 @@
     <!-- Shop Our Categories -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-semibold mb-8 text-center">Shop Our Categories</h2>
+            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Shop Our Categories</h2>
             <div class="flex flex-wrap justify-center gap-8">
                 @foreach(['Summer Collection', 'Winter Collection', 'Spring Collection', 'Autumn Collection'] as $cat)
                     <x-polaroid-card
@@ -127,7 +125,7 @@
     </section>
 
     <!-- Top Selling Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 bg-gray-50 font-sentient" >
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-semibold mb-8 text-center">Top Selling</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

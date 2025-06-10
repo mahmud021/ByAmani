@@ -35,7 +35,6 @@
 
     /* Updated caption style for better readability */
     .caption {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         text-align: center;
         margin-top: 12px;
         color: #2d3748;
@@ -47,5 +46,5 @@
 
 <div {{ $attributes->merge(['class' => 'polaroid']) }}>
     <div class="photo" style="background-image: url('{{ $image }}');"></div>
-    <div class="caption">{{ $slot }}</div>
+    <div class="caption font-sentient">{{ $slot }}</div>
 </div>

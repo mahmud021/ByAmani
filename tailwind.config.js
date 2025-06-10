@@ -12,6 +12,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+                sentient: ['Sentient', 'sans-serif'],
+                telma: ['Telma', 'sans-serif'],
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
         },
