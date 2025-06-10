@@ -51,8 +51,8 @@
             <!-- Collapsible Nav Items -->
             <div id="hs-navbar-alignment" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2" aria-labelledby="hs-navbar-alignment-collapse">
                 <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
-                    <a class="font-medium text-blue-500 focus:outline-none" href="#" aria-current="page">Home</a>
-                    <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="#">Shop</a>
+                    <a class="font-medium text-blue-500 focus:outline-none" href="{{route('home')}}" aria-current="page">Home</a>
+                    <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="{{route('menu')}}">Shop</a>
                     <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="#">About</a>
                     <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="#">Contact</a>
                 </div>
