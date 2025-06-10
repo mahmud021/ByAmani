@@ -15,20 +15,6 @@
         @stack('styles')
     </head>
     <body class="font-sans antialiased text-gray-900">
-
-    <!-- Top Bar -->
-    <!-- Announcement Banner -->
-    <a class="group block bg-gray-100 hover:bg-gray-200 focus:outline-hidden focus:bg-gray-200 p-4 rounded-lg text-center transition duration-300" href="#">
-        <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
-            <p class="me-2 inline-block text-sm text-gray-800">
-                Shop for everyone on your list with the By Amani Guide.
-            </p>
-            <span class="group-hover:underline decoration-2 inline-flex justify-center items-center gap-x-2 font-semibold text-blue-600 text-sm">
-      Shop now
-      <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-    </span>
-        </div>
-    </a>
     <!-- Navbar -->
     <header class="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-3">
         <nav class="max-w-[85rem] w-full mx-auto px-4 font-sentient flex flex-wrap sm:flex-nowrap basis-full items-center justify-between">
@@ -66,46 +52,13 @@
             <div id="hs-navbar-alignment" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2" aria-labelledby="hs-navbar-alignment-collapse">
                 <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
                     <a class="font-medium text-blue-500 focus:outline-none" href="#" aria-current="page">Home</a>
-                    <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="{{route('menu')}}">Shop</a>
+                    <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="#">Shop</a>
                     <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="#">About</a>
                     <a class="font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400" href="#">Contact</a>
                 </div>
             </div>
         </nav>
     </header>
-
-
-    <!-- Hero Section -->
-    <!-- Hero Section -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6 flex flex-col-reverse lg:flex-row items-center">
-            <!-- Text Content -->
-            <div class="w-full lg:w-1/2 text-gray-900 font-sentient">
-                <h1 class="text-4xl md:text-5xl font-sentient mb-4">
-                    Discover Your Signature Style
-                </h1>
-                <p class="mb-6 max-w-md">
-                    Elevate your wardrobe with our exclusive collections curated just for you.
-                </p>
-                <a
-                    href="#"
-                    class="inline-block px-6 py-3 bg-green-900 text-white rounded-full font-medium hover:bg-green-800"
-                >
-                    Shop Now
-                </a>
-            </div>
-            <!-- Illustration -->
-            <div class="w-full lg:w-1/2 mb-8 lg:mb-0 flex justify-center">
-                <img
-                    src="{{ asset('images/hero.svg') }}"
-                    alt="Fashion Illustration"
-                    class="w-full h-auto max-w-md"
-                />
-            </div>
-        </div>
-    </section>
-
-
     <!-- Shop Our Categories -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">

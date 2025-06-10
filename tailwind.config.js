@@ -8,7 +8,6 @@ export default {
         './storage/framework/views/*.php',
         './resources/**/*.js',
         './resources/views/**/*.blade.php',
-        "./node_modules/preline/**/*.js"
     ],
 
     theme: {
@@ -21,5 +20,5 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, require("daisyui")],
 };
