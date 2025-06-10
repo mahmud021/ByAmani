@@ -6,7 +6,9 @@ export default {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
+        './resources/**/*.js',
         './resources/views/**/*.blade.php',
+        "./node_modules/preline/**/*.js"
     ],
 
     theme: {
