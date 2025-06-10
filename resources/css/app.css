@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@plugin "daisyui";
-
 @font-face {
     font-family: 'Telma';
     src: url('/fonts/telma/Telma-Regular.woff2') format('woff2');
