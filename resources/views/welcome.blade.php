@@ -82,10 +82,10 @@
             <!-- Text Content -->
             <div class="w-full lg:w-1/2 text-gray-900 font-sentient">
                 <h1 class="text-4xl md:text-5xl font-sentient mb-4">
-                    Discover Your Signature Style
+                    Comfort through every stitch
                 </h1>
                 <p class="mb-6 max-w-md">
-                    Elevate your wardrobe with our exclusive collections curated just for you.
+                    Carefully crafted by hand, our pieces express gentle beauty in its simplest form.
                 </p>
                 <a
                     href="#"
@@ -109,9 +109,9 @@
     <!-- Shop Our Categories -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Shop Our Categories</h2>
+            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Our Products</h2>
             <div class="flex flex-wrap justify-center gap-8">
-                @foreach(['Summer Collection', 'Winter Collection', 'Spring Collection', 'Autumn Collection'] as $cat)
+                @foreach(['Maxi Dresses', 'Mini Dresses', 'Long Dresses', 'Fitted Dresses'] as $cat)
                     <x-polaroid-card
                         :image="asset('images/category.jpg')"
                         class="transform hover:scale-105"
