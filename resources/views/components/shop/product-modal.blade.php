@@ -1,46 +1,98 @@
-{{-- components/shop/product-modal.blade.php --}}
 @props(['product', 'modalId'])
 
-<div id="{{ $modalId }}" class="hs-overlay hidden fixed inset-0 z-50 size-full overflow-x-hidden overflow-y-auto pointer-events-none"
-     role="dialog" tabindex="-1" aria-labelledby="{{ $modalId }}-label">
-    <div class="hs-overlay-animation-target hs-overlay-open:scale-100 hs-overlay-open:opacity-100 scale-95 opacity-0 ease-in-out transition-all duration-200 sm:max-w-3xl sm:w-full m-3 sm:mx-auto min-h-[calc(100%-56px)] flex items-center">
-        <div class="w-full bg-white border border-[#A6977C]/40 shadow-2xs rounded-xl pointer-events-auto">
-            <div class="flex justify-between items-center py-3 px-4 border-b border-[#A6977C]/30">
-                <h3 id="{{ $modalId }}-label" class="font-bold text-[#0D2F25]">Quick View</h3>
-                <button type="button"
-                        class="size-8 inline-flex justify-center items-center rounded-full bg-[#F4F1EC] text-[#0D2F25] hover:bg-[#e8e4dd]"
-                        data-hs-overlay="#{{ $modalId }}">
-                    <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path d="M18 6 6 18"></path>
-                        <path d="m6 6 12 12"></path>
-                    </svg>
-                </button>
-            </div>
+<div id="{{ $modalId }}" class="relative z-50 hidden" aria-labelledby="{{ $modalId }}-title" role="dialog" aria-modal="true">
+    <!-- Background backdrop with transition -->
+    <div id="{{ $modalId }}-backdrop"
+         class="fixed inset-0 bg-gray-500/75 transition-opacity duration-300 ease-in-out opacity-0"
+         aria-hidden="true"></div>
 
-            <div class="flex font-sans p-4 bg-[#F4F1EC]">
-                <div class="flex-none w-48 relative">
-                    <img src="{{ asset('storage/' . $product->image) }}"
-                         alt="{{ $product->name }}"
-                         class="absolute inset-0 w-full h-full object-cover rounded-l-xl"
-                         loading="lazy" />
-                </div>
-                <form class="flex-auto p-6">
-                    <div class="flex flex-wrap">
-                        <h1 class="flex-auto text-xl font-semibold text-[#0D2F25]">{{ $product->name }}</h1>
-                        <div class="text-lg font-semibold text-[#7A8D73]">₦{{ number_format($product->price) }}</div>
-                        <div class="w-full flex-none text-sm font-medium text-green-600 mt-2">In stock</div>
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <!-- Modal panel with transition -->
+            <div id="{{ $modalId }}-panel"
+                 class="relative transform transition-all duration-300 ease-in-out sm:my-8 sm:w-full sm:max-w-lg
+                        opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                <div class="overflow-hidden rounded-lg bg-white text-left shadow-xl">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <!-- Product image -->
+                            <div class="mx-auto flex-none w-48 h-48 sm:mx-0">
+                                <img src="{{ asset('storage/' . $product->image) }}"
+                                     alt="{{ $product->name }}"
+                                     class="w-full h-full object-cover rounded-lg">
+                            </div>
+
+                            <!-- Product details -->
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg font-semibold text-[#0D2F25]" id="{{ $modalId }}-title">{{ $product->name }}</h3>
+                                <div class="mt-2">
+                                    <p class="text-xl font-bold text-[#7A8D73]">₦{{ number_format($product->price) }}</p>
+                                    <p class="text-sm text-green-600 mt-1">In stock</p>
+                                    <p class="text-sm text-[#7A8D73] mt-2">Free shipping included.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {{-- Optional: sizes and buttons --}}
-                    <div class="flex space-x-4 mb-6 text-sm font-medium mt-4">
-                        <button class="h-10 px-6 font-semibold rounded-md border border-[#0D2F25] text-[#0D2F25] bg-white hover:bg-[#f4f1ec]" type="button">
-                            Add to cart
+                    <!-- Modal footer -->
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                                class="inline-flex w-full justify-center rounded-md bg-[#0D2F25] px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-[#143b30] sm:ml-3 sm:w-auto">
+                            Add to Cart
+                        </button>
+                        <button type="button"
+                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#0D2F25] shadow-xs ring-1 ring-[#A6977C] hover:bg-[#F4F1EC] sm:mt-0 sm:w-auto"
+                                onclick="closeModal('{{ $modalId }}')">
+                            Close
                         </button>
                     </div>
-                    <p class="text-sm text-[#7A8D73]">Free shipping included.</p>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        const backdrop = document.getElementById(modalId + '-backdrop');
+        const panel = document.getElementById(modalId + '-panel');
+
+        // Show elements
+        modal.classList.remove('hidden');
+
+        // Trigger backdrop fade in
+        setTimeout(() => {
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+        }, 10);
+
+        // Trigger panel animation
+        setTimeout(() => {
+            panel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+            panel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+        }, 50);
+
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        const backdrop = document.getElementById(modalId + '-backdrop');
+        const panel = document.getElementById(modalId + '-panel');
+
+        // Trigger panel animation
+        panel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+        panel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+
+        // Trigger backdrop fade out
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+
+        // Hide everything after animations complete
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }, 300); // Match this duration with your CSS transition duration
+    }
+</script>

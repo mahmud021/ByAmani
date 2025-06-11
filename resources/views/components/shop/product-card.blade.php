@@ -1,4 +1,3 @@
-{{-- components/shop/product-card.blade.php --}}
 @props(['product'])
 
 @php $modalId = "product-modal-{$product->id}"; @endphp
@@ -24,7 +23,7 @@
             </a>
             <button type="button"
                     class="w-full py-1.5 text-sm font-medium text-[#0D2F25] border border-[#A6977C] rounded-lg bg-white hover:bg-[#f2efe9] transition"
-                    data-hs-overlay="#{{ $modalId }}">
+                    onclick="openModal('{{ $modalId }}')">
                 Quick View
             </button>
         </div>
