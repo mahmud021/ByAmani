@@ -18,47 +18,36 @@
         </x-primary-button>
 
         <x-modal name="create-product" :show="$errors->productCreation->isNotEmpty()" focusable>
-            <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data"
-                  class="p-6 space-y-6">
+            <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data" class="p-6 space-y-6">
                 @csrf
 
                 <!-- Product Name -->
                 <div>
                     <x-input-label for="name" value="Product Name" />
-                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required autofocus />
+                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required autofocus value="{{ old('name') }}" />
                     <x-input-error :messages="$errors->productCreation->get('name')" class="mt-2" />
                 </div>
 
                 <!-- Description -->
                 <div>
                     <x-input-label for="description" value="Description" />
-                    <textarea id="description" name="description" rows="3"
-                              class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                    <textarea id="description" name="description" rows="3" class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500">{{ old('description') }}</textarea>
                     <x-input-error :messages="$errors->productCreation->get('description')" class="mt-2" />
                 </div>
-
-                <!-- Price -->
-                <div>
-                    <x-input-label for="price" value="Price (₦)" />
-                    <x-text-input id="price" name="price" type="number" step="0.01" class="mt-1 block w-full" required />
-                    <x-input-error :messages="$errors->productCreation->get('price')" class="mt-2" />
-                </div>
-
                 <!-- Stock -->
                 <div>
                     <x-input-label for="stock" value="Stock" />
-                    <x-text-input id="stock" name="stock" type="number" class="mt-1 block w-full" required />
+                    <x-text-input id="stock" name="stock" type="number" class="mt-1 block w-full" required value="{{ old('stock') }}" />
                     <x-input-error :messages="$errors->productCreation->get('stock')" class="mt-2" />
                 </div>
 
                 <!-- Category -->
                 <div>
                     <x-input-label for="category_id" value="Category" />
-                    <select name="category_id" id="category_id"
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                    <select name="category_id" id="category_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
                         <option disabled selected>-- Select Category --</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach
                     </select>
                     <x-input-error :messages="$errors->productCreation->get('category_id')" class="mt-2" />
@@ -71,13 +60,10 @@
                         @foreach ($sizes as $size)
                             <div class="flex items-center gap-4 mb-2">
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" name="sizes[{{ $size->id }}][selected]" value="1"
-                                           class="rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+                                    <input type="checkbox" name="sizes[{{ $size->id }}][selected]" value="1" class="rounded border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300" {{ old('sizes.' . $size->id . '.selected') ? 'checked' : '' }}>
                                     <span class="text-sm dark:text-gray-300">{{ $size->label }}</span>
                                 </label>
-                                <input type="number" name="sizes[{{ $size->id }}][price]" step="0.01"
-                                       placeholder="Price for {{ $size->label }}"
-                                       class="border rounded px-2 py-1 w-40 text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
+                                <input type="number" name="sizes[{{ $size->id }}][price]" step="0.01" placeholder="Price for {{ $size->label }}" value="{{ old('sizes.' . $size->id . '.price') }}" class="border rounded px-2 py-1 w-40 text-sm border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
                             </div>
                         @endforeach
                     </div>
@@ -87,8 +73,7 @@
                 <!-- Image Upload -->
                 <div>
                     <x-input-label for="image" value="Product Image" />
-                    <input type="file" name="image" id="image"
-                           class="mt-1 block w-full text-sm text-gray-900 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-md cursor-pointer file:bg-gray-100 dark:file:bg-gray-800 file:px-4 file:py-2 file:border-0 dark:file:text-gray-300" />
+                    <input type="file" name="image" id="image" class="mt-1 block w-full text-sm text-gray-900 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-md cursor-pointer file:bg-gray-100 dark:file:bg-gray-800 file:px-4 file:py-2 file:border-0 dark:file:text-gray-300" />
                     <x-input-error :messages="$errors->productCreation->get('image')" class="mt-2" />
                 </div>
 
@@ -96,18 +81,16 @@
                 <div class="flex items-center space-x-4">
                     <div>
                         <x-input-label for="status" value="Status" />
-                        <select name="status" id="status"
-                                class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500">
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                        <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500">
+                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                         </select>
                         <x-input-error :messages="$errors->productCreation->get('status')" class="mt-2" />
                     </div>
 
                     <div class="mt-6">
                         <label class="inline-flex items-center space-x-2">
-                            <input type="checkbox" name="is_featured"
-                                   class="rounded border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                            <input type="checkbox" name="is_featured" class="rounded border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500" {{ old('is_featured') ? 'checked' : '' }}>
                             <span class="text-sm text-gray-700 dark:text-gray-300">Mark as Featured</span>
                         </label>
                     </div>
@@ -125,7 +108,6 @@
                 </div>
             </form>
         </x-modal>
-
         <!-- Product Table Display -->
         <div class="mt-12">
             <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-4">
@@ -141,7 +123,6 @@
                                 <tr>
                                     <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Name</th>
                                     <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Category</th>
-                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Price</th>
                                     <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Stock</th>
                                     <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Sizes</th>
                                     <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Status</th>
@@ -156,9 +137,6 @@
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
                                             {{ $product->category->name ?? '—' }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
-                                            ₦{{ number_format($product->price, 2) }}
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
                                             {{ $product->stock }}

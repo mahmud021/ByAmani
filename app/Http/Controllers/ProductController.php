@@ -41,17 +41,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validated = $request->validateWithBag('productCreation', [
             'name' => 'required|string|max:255|unique:products,name',
             'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
             'status' => 'required|in:active,inactive',
             'is_featured' => 'nullable|boolean',
             'sizes' => 'nullable|array',
             'image' => 'nullable|image|max:2048',
-        ], [], [], 'productCreation');
+        ]);
 
         // Handle image upload if present
         $imagePath = null;
@@ -64,7 +63,6 @@ class ProductController extends Controller
             'name' => $validated['name'],
             'slug' => Str::slug($validated['name']),
             'description' => $validated['description'] ?? null,
-            'price' => $validated['price'],
             'stock' => $validated['stock'],
             'category_id' => $validated['category_id'],
             'status' => $validated['status'],
