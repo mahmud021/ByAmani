@@ -39,16 +39,17 @@
     <!-- Categories Section -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Our Products</h2>
+            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Shop by Categories</h2>
             <div class="flex flex-wrap justify-center gap-8">
-                @foreach(['Maxi Dresses', 'Mini Dresses', 'Long Dresses', 'Fitted Dresses'] as $cat)
-                    <x-polaroid-card :image="asset('images/category.jpg')" class="transform hover:scale-105">
-                        {{ $cat }}
+                @foreach($categories as $cat)
+                    <x-polaroid-card :image="$cat->image">
+                        {{ $cat->name }}
                     </x-polaroid-card>
                 @endforeach
             </div>
         </div>
     </section>
+
 
     <!-- Top Selling Section -->
     <section class="py-16 bg-gray-50 font-sentient">
