@@ -1,50 +1,86 @@
 @props(['product', 'modalId'])
 
-<div id="{{ $modalId }}" class="relative z-50 hidden" aria-labelledby="{{ $modalId }}-title" role="dialog" aria-modal="true">
-    <!-- Background backdrop with transition -->
-    <div id="{{ $modalId }}-backdrop"
-         class="fixed inset-0 bg-gray-500/75 transition-opacity duration-300 ease-in-out opacity-0"
-         aria-hidden="true"></div>
+<div id="{{ $modalId }}" class="relative z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="{{ $modalId }}-title">
+    <div id="{{ $modalId }}-backdrop" class="fixed inset-0 bg-[#0D2F25]/60 transition-opacity opacity-0" aria-hidden="true"></div>
 
     <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <!-- Modal panel with transition -->
-            <div id="{{ $modalId }}-panel"
-                 class="relative transform transition-all duration-300 ease-in-out sm:my-8 sm:w-full sm:max-w-lg
-                        opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                <div class="overflow-hidden rounded-lg bg-white text-left shadow-xl">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                            <!-- Product image -->
-                            <div class="mx-auto flex-none w-48 h-48 sm:mx-0">
-                                <img src="{{ asset('storage/' . $product->image) }}"
-                                     alt="{{ $product->name }}"
-                                     class="w-full h-full object-cover rounded-lg">
-                            </div>
+        <div class="flex min-h-full items-center justify-center p-4 sm:p-6 lg:p-8 text-center">
+            <div id="{{ $modalId }}-panel" class="relative w-full transform rounded-lg bg-white shadow-xl transition-all sm:max-w-2xl opacity-0 scale-95">
 
-                            <!-- Product details -->
-                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                <h3 class="text-lg font-semibold text-[#0D2F25]" id="{{ $modalId }}-title">{{ $product->name }}</h3>
-                                <div class="mt-2">
-                                    <p class="text-xl font-bold text-[#7A8D73]">₦{{ number_format($product->price) }}</p>
-                                    <p class="text-sm text-green-600 mt-1">In stock</p>
-                                    <p class="text-sm text-[#7A8D73] mt-2">Free shipping included.</p>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Close Button -->
+                <button type="button"
+                        class="absolute top-4 right-4 text-[#7A8D73] hover:text-[#0D2F25]"
+                        onclick="closeModal('{{ $modalId }}')">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 text-left">
+                    <!-- Image -->
+                    <div>
+                        <img src="{{ asset('storage/' . $product->image) }}"
+                             alt="{{ $product->name }}"
+                             class="w-full max-h-[350px] object-cover rounded-lg bg-[#F3F2EF]">
                     </div>
 
-                    <!-- Modal footer -->
-                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button type="button"
-                                class="inline-flex w-full justify-center rounded-md bg-[#0D2F25] px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-[#143b30] sm:ml-3 sm:w-auto">
-                            Add to Cart
-                        </button>
-                        <button type="button"
-                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-[#0D2F25] shadow-xs ring-1 ring-[#A6977C] hover:bg-[#F4F1EC] sm:mt-0 sm:w-auto"
-                                onclick="closeModal('{{ $modalId }}')">
-                            Close
-                        </button>
+                    <!-- Info -->
+                    <div>
+                        <h2 class="text-2xl font-bold text-[#0D2F25]" id="{{ $modalId }}-title">{{ $product->name }}</h2>
+                        <p class="mt-1 text-sm text-[#7A8D73]">{{ $product->category->name }}</p>
+
+                        @if($product->is_featured)
+                            <span class="inline-block mt-2 px-2.5 py-0.5 text-xs font-medium bg-[#E15858] text-white rounded-full">
+                                Featured
+                            </span>
+                        @endif
+
+                        <p class="mt-4 text-[#0D2F25]">{{ $product->description }}</p>
+
+                        <!-- Size -->
+                        <div class="mt-6">
+                            <h4 class="text-sm font-medium text-[#0D2F25]">Size</h4>
+                            <div class="mt-2 grid grid-cols-3 gap-2">
+                                @foreach($product->sizes as $size)
+                                    <label class="relative">
+                                        <input type="radio" name="size" value="{{ $size->id }}" class="sr-only peer" @if($loop->first) checked @endif>
+                                        <div class="w-full p-2 border rounded-md text-center cursor-pointer peer-checked:border-[#0D2F25] peer-checked:bg-[#F3F2EF]">
+                                            <span class="block text-sm font-semibold text-[#0D2F25]">{{ $size->label }}</span>
+                                            <span class="block mt-1 text-sm font-medium text-[#7A8D73]">₦{{ number_format($size->pivot->price) }}</span>
+                                        </div>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Stock -->
+                        <div class="mt-4">
+                            @if($product->stock > 0)
+                                <span class="text-sm font-medium text-green-700">In stock</span>
+                            @else
+                                <span class="text-sm font-medium text-[#E15858]">Out of stock</span>
+                            @endif
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="mt-6 flex gap-3">
+                            <button type="button"
+                                    class="flex-1 bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
+                                    @if($product->stock <= 0) disabled @endif>
+                                Add to Cart
+                            </button>
+                            <button type="button" class="p-2 border border-[#7A8D73] rounded-md hover:bg-[#F3F2EF]">
+                                <svg class="w-5 h-5 text-[#0D2F25]" fill="none" stroke="currentColor" stroke-width="2"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Info -->
+                        <p class="mt-4 text-sm text-[#7A8D73]">Free shipping on all orders</p>
                     </div>
                 </div>
             </div>
@@ -93,6 +129,6 @@
         setTimeout(() => {
             modal.classList.add('hidden');
             document.body.classList.remove('overflow-hidden');
-        }, 300); // Match this duration with your CSS transition duration
+        }, 300);
     }
 </script>
