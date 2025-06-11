@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -11,7 +15,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('product.index');
+
+        return view('products.index', [
+            'categories' => Category::all(),
+            'sizes' => Size::all(),
+        ]);
     }
 
     /**
@@ -27,8 +35,46 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:products,name',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'status' => 'required|in:active,inactive',
+            'is_featured' => 'nullable|boolean',
+            'sizes' => 'nullable|array',
+            'sizes.*' => 'exists:sizes,id',
+            'image' => 'nullable|image|max:2048',
+        ], [], [], 'productCreation');
+
+        // Handle image upload if present
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+        }
+
+        // Create the product
+        $product = Product::create([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['name']),
+            'description' => $validated['description'] ?? null,
+            'price' => $validated['price'],
+            'stock' => $validated['stock'],
+            'category_id' => $validated['category_id'],
+            'status' => $validated['status'],
+            'is_featured' => $request->boolean('is_featured'),
+            'image' => $imagePath,
+        ]);
+
+        // Attach sizes if provided
+        if (!empty($validated['sizes'])) {
+            $product->sizes()->sync($validated['sizes']);
+        }
+
+        return redirect()->back()->with('success', 'Product created successfully.');
     }
+
 
     /**
      * Display the specified resource.
