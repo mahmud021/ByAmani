@@ -14,7 +14,11 @@
     <div class="p-3 flex flex-col justify-between h-[150px]">
         <div>
             <p class="text-sm font-semibold text-[#0D2F25]">{{ $product->name }}</p>
-            <p class="text-base font-bold text-[#7A8D73]">₦{{ number_format($product->price) }}</p>
+            @php
+                $minPrice = $product->sizes->min(fn($size) => $size->pivot->price);
+            @endphp
+
+            <p class="text-base font-bold text-[#7A8D73]">From ₦{{ number_format($minPrice) }}</p>
         </div>
         <div class="mt-auto space-y-2">
             <a href="{{ route('products.show', $product) }}"

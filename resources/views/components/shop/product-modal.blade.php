@@ -80,7 +80,7 @@
                         </div>
 
                         <!-- Info -->
-                        <p class="mt-4 text-sm text-[#7A8D73]">Free shipping on all orders</p>
+                        <p class="mt-4 text-sm text-[#7A8D73]"></p>
                     </div>
                 </div>
             </div>
