@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -13,13 +14,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function manage()
     {
         return view('dashboard.manage-products', [
             'categories' => Category::all(),
             'sizes' => Size::all(),
+            'products' => Product::with('sizes')->where('status', 'active')->get()
+
         ]);
     }
+
+
 
 
     /**
@@ -102,16 +108,21 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function deactivate(Product $product)
     {
-        //
+        $product->update(['status' => 'inactive']);
+
+        return redirect()->back()->with('success', 'Product deactivated successfully.');
     }
+
+
 }

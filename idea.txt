@@ -1,1 +1,1 @@
-attach prices to sizes
+form validation

@@ -125,5 +125,105 @@
                 </div>
             </form>
         </x-modal>
+
+        <!-- Product Table Display -->
+        <div class="mt-12">
+            <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-4">
+                All Products
+            </h3>
+
+            <div class="flex flex-col">
+                <div class="-m-1.5 overflow-x-auto">
+                    <div class="p-1.5 min-w-full inline-block align-middle">
+                        <div class="overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                                <thead>
+                                <tr>
+                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Name</th>
+                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Category</th>
+                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Price</th>
+                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Stock</th>
+                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Sizes</th>
+                                    <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Status</th>
+                                    <th class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                                @forelse ($products as $product)
+                                    <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-800 dark:text-neutral-200">
+                                            {{ $product->name }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
+                                            {{ $product->category->name ?? '—' }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
+                                            ₦{{ number_format($product->price, 2) }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-neutral-200">
+                                            {{ $product->stock }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
+                                            <div class="hs-dropdown relative inline-flex">
+                                                <button id="sizes-dropdown-{{ $product->id }}" type="button"
+                                                        class="hs-dropdown-toggle py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                                        aria-haspopup="menu"
+                                                        aria-expanded="false"
+                                                        aria-label="Sizes Dropdown">
+                                                    Sizes
+                                                    <svg class="hs-dropdown-open:rotate-180 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                         stroke-linejoin="round">
+                                                        <path d="m6 9 6 6 6-6" />
+                                                    </svg>
+                                                </button>
+
+                                                <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg mt-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
+                                                     role="menu"
+                                                     aria-orientation="vertical"
+                                                     aria-labelledby="sizes-dropdown-{{ $product->id }}">
+                                                    <div class="p-1 space-y-0.5">
+                                                        @forelse ($product->sizes as $size)
+                                                            <div class="flex justify-between items-center py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                                                <span>{{ $size->label }}</span>
+                                                                <span>₦{{ number_format($size->pivot->price, 2) }}</span>
+                                                            </div>
+                                                        @empty
+                                                            <div class="py-2 px-3 text-sm text-gray-500 dark:text-neutral-400">No sizes</div>
+                                                        @endforelse
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-6 py-4 text-sm capitalize text-gray-800 dark:text-neutral-200">
+                                            {{ $product->status }}
+                                        </td>
+                                        <td class="px-6 py-4 text-end text-sm font-medium">
+                                            <form action="{{ route('products.deactivate', $product) }}" method="POST" onsubmit="return confirm('Are you sure you want to deactivate this product?')">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 dark:text-red-500 dark:hover:text-red-400">
+                                                    Deactivate
+                                                </button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-neutral-400">
+                                            No products yet.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 </div>

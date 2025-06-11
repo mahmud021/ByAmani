@@ -17,9 +17,11 @@ Route::get('/menu', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', function () {
-        return view('dashboard');})->name('dashboard');
+        return view('dashboard');
+    })->name('dashboard');
     Route::get('/dashboard/products/manage', [ProductController::class, 'manage'])->name('products.manage');
-Route::post('/product', [ProductController::class, 'store'])->name('products.store');
+    Route::post('/product', [ProductController::class, 'store'])->name('products.store');
+    Route::patch('/products/{product}/deactivate', [ProductController::class, 'deactivate'])->name('products.deactivate');
 
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 
