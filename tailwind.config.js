@@ -17,6 +17,14 @@ export default {
                 telma: ['Telma', 'sans-serif'],
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                brand: {
+                    brown: '#8B5E3C',
+                    gold: '#B48C63',
+                    blush: '#F9E7DE',
+                    cream: '#FAF9F6',
+                },
+            },
         },
     },
 

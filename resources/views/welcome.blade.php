@@ -21,29 +21,32 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="py-20 bg-white">
+    <section class="py-20 bg-brand-cream">
         <div class="container mx-auto px-6 flex flex-col-reverse lg:flex-row items-center">
-            <div class="w-full lg:w-1/2 text-gray-900 font-sentient">
+            <div class="w-full lg:w-1/2 text-brand-brown font-sentient">
                 <h1 class="text-4xl md:text-5xl mb-4">Comfort through every stitch</h1>
                 <p class="mb-6 max-w-md">Carefully crafted by hand, our pieces express gentle beauty in its simplest form.</p>
-                <a href="#" class="inline-block px-6 py-3 bg-green-900 text-white rounded-full font-medium hover:bg-green-800">
+                <a href="#" class="inline-block px-6 py-3 bg-brand-brown text-white rounded-full font-medium hover:bg-brand-gold transition">
                     Shop Now
                 </a>
             </div>
             <div class="w-full lg:w-1/2 mb-8 lg:mb-0 flex justify-center">
-                <img src="{{ asset('images/hero.svg') }}" alt="Fashion Illustration" class="w-full h-auto max-w-md"/>
+                <img src="{{ asset('images/hero2.png') }}" alt="Fashion Illustration" class="w-full h-auto max-w-md" />
             </div>
         </div>
     </section>
 
+
     <!-- Categories Section -->
-    <section class="py-16 bg-white">
+    <section class="py-16" style="background-color: #F4F1EC;">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Shop by Categories</h2>
+            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center text-[#0D2F25]">
+                Shop by Categories
+            </h2>
             <div class="flex flex-wrap justify-center gap-8">
                 @foreach($categories as $cat)
-                    <x-polaroid-card :image="$cat->image">
-                        {{ $cat->name }}
+                    <x-polaroid-card :image="$cat->image" class="transform hover:scale-105 border-[#0D2F25]">
+                        <span class="text-[#0D2F25]">{{ $cat->name }}</span>
                     </x-polaroid-card>
                 @endforeach
             </div>
@@ -52,22 +55,22 @@
 
 
     <!-- Top Selling Section -->
-    <section class="py-16 bg-gray-50 font-sentient">
+    <section class="py-16 font-sentient" style="background-color: #F4F1EC;">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-semibold mb-8 text-center">Top Selling</h2>
+            <h2 class="text-3xl font-semibold mb-8 text-center text-[#0D2F25]">Top Selling</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach(range(1,4) as $i)
-                    <div class="max-w-xs mx-auto rounded-lg bg-white p-4 shadow hover:scale-105 hover:shadow-md transition duration-150">
+                    <div class="max-w-xs mx-auto rounded-lg bg-white p-4 shadow hover:scale-105 hover:shadow-md transition duration-150 border border-[#E6DDC6]">
                         <img class="w-full h-48 rounded-lg object-cover object-center"
                              src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=2070&auto=format&fit=crop"
                              alt="Product {{ $i }}" />
-                        <p class="mt-4 pl-2 font-bold text-gray-700">Product Name</p>
-                        <p class="mb-2 pl-2 text-xl font-semibold text-gray-900">$399</p>
+                        <p class="mt-4 pl-2 font-bold text-[#0D2F25]">Product Name</p>
+                        <p class="mb-2 pl-2 text-xl font-semibold text-gray-900">₦399</p>
                         <div class="inline-flex rounded-lg shadow-2xs ml-4">
-                            <button type="button" class="py-2 px-3 inline-flex items-center text-sm font-medium border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
+                            <button type="button" class="py-2 px-3 inline-flex items-center text-sm font-medium border border-[#0D2F25] bg-white text-[#0D2F25] hover:bg-[#7A8D73] hover:text-white transition">
                                 View Item
                             </button>
-                            <button type="button" class="py-2 px-3 inline-flex items-center text-sm font-medium border border-gray-200 bg-white text-gray-800 hover:bg-gray-50">
+                            <button type="button" class="py-2 px-3 inline-flex items-center text-sm font-medium border border-[#0D2F25] bg-white text-[#0D2F25] hover:bg-[#7A8D73] hover:text-white transition">
                                 <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
                                      viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
