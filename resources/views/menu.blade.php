@@ -10,13 +10,17 @@
 
             <x-shop.category-tabs :categories="$categories" />
 
-            <div class="mt-3">
+            <div class="mt-3 min-h-[400px]">
                 {{-- All Products --}}
                 <div id="tab-pane-all" role="tabpanel" aria-labelledby="tab-all">
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
-                        @foreach($allProducts as $product)
+                        @forelse($allProducts as $product)
                             <x-shop.product-card :product="$product" />
-                        @endforeach
+                        @empty
+                            <div class="col-span-full text-center text-[#7A8D73] text-lg">
+                                Oops, no products here yet! Check back soon for new arrivals.
+                            </div>
+                        @endforelse
                     </div>
                 </div>
 
@@ -24,14 +28,17 @@
                 @foreach($categories as $category)
                     <div id="tab-pane-{{ $category->id }}" class="hidden" role="tabpanel" aria-labelledby="tab-{{ $category->id }}">
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
-                            @foreach($category->products as $product)
+                            @forelse($category->products as $product)
                                 <x-shop.product-card :product="$product" />
-                            @endforeach
+                            @empty
+                                <div class="col-span-full text-center text-[#7A8D73] text-lg">
+                                    Oops, no products here yet! Check back soon for new arrivals.
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 @endforeach
             </div>
-
         </div>
     </section>
 @endsection
