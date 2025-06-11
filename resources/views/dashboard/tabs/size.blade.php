@@ -44,5 +44,36 @@
                 </div>
             </form>
         </x-modal>
+
+        {{-- Table of Sizes --}}
+        <div class="mt-8">
+            <h3 class="text-md font-semibold text-gray-900 dark:text-gray-200 mb-4">Available Sizes</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                    <thead>
+                    <tr>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">#</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Label</th>
+                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Created</th>
+                    </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                    @foreach($sizes as $index => $size)
+                        <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
+                            <td class="px-4 py-2 text-sm text-gray-800 dark:text-neutral-200">{{ $index + 1 }}</td>
+                            <td class="px-4 py-2 text-sm text-gray-800 dark:text-neutral-200">{{ $size->label }}</td>
+                            <td class="px-4 py-2 text-sm text-gray-600 dark:text-neutral-400">{{ $size->created_at->diffForHumans() }}</td>
+                        </tr>
+                    @endforeach
+
+                    @if($sizes->isEmpty())
+                        <tr>
+                            <td colspan="3" class="text-center py-4 text-sm text-gray-500 dark:text-neutral-500">No sizes created yet.</td>
+                        </tr>
+                    @endif
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section>
 </div>

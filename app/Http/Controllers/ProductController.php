@@ -20,10 +20,10 @@ class ProductController extends Controller
         return view('dashboard.manage-products', [
             'categories' => Category::all(),
             'sizes' => Size::all(),
-            'products' => Product::with('sizes')->where('status', 'active')->get()
-
+            'products' => Product::with('sizes')->where('status', 'active')->get(),
         ]);
     }
+
 
 
 
