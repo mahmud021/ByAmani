@@ -44,7 +44,6 @@ class ProductController extends Controller
             'status' => 'required|in:active,inactive',
             'is_featured' => 'nullable|boolean',
             'sizes' => 'nullable|array',
-            'sizes.*' => 'exists:sizes,id',
             'image' => 'nullable|image|max:2048',
         ], [], [], 'productCreation');
 
@@ -68,9 +67,17 @@ class ProductController extends Controller
         ]);
 
         // Attach sizes if provided
-        if (!empty($validated['sizes'])) {
-            $product->sizes()->sync($validated['sizes']);
+        foreach ($request->input('sizes', []) as $sizeId => $data) {
+            if (isset($data['selected']) && is_numeric($data['price'])) {
+                // Optionally: Validate the size exists first
+                if (Size::where('id', $sizeId)->exists()) {
+                    $product->sizes()->attach($sizeId, [
+                        'price' => $data['price'],
+                    ]);
+                }
+            }
         }
+
 
         return redirect()->back()->with('success', 'Product created successfully.');
     }
