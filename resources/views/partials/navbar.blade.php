@@ -56,11 +56,23 @@
              class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:grow-0 sm:basis-auto sm:block sm:order-2"
              aria-labelledby="hs-navbar-alignment-collapse">
             <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:mt-0 sm:ps-5">
-                <a class="font-medium text-[#0D2F25] focus:outline-none" href="{{route('home')}}" aria-current="page">Home</a>
-                <a class="font-medium text-[#7A8D73] hover:text-[#0D2F25] focus:outline-none" href="{{route('menu')}}">Shop</a>
+                {{-- Home --}}
+                <a class="font-medium focus:outline-none {{ request()->routeIs('home') ? 'text-[#0D2F25]' : 'text-[#7A8D73] hover:text-[#0D2F25]' }}"
+                   href="{{ route('home') }}">
+                    Home
+                </a>
+
+                {{-- Shop --}}
+                <a class="font-medium focus:outline-none {{ request()->routeIs('menu') ? 'text-[#0D2F25]' : 'text-[#7A8D73] hover:text-[#0D2F25]' }}"
+                   href="{{ route('menu') }}">
+                    Shop
+                </a>
+
+                {{-- Static links --}}
                 <a class="font-medium text-[#7A8D73] hover:text-[#0D2F25] focus:outline-none" href="#">About</a>
                 <a class="font-medium text-[#7A8D73] hover:text-[#0D2F25] focus:outline-none" href="#">Contact</a>
             </div>
         </div>
+
     </nav>
 </header>
