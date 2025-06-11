@@ -13,14 +13,14 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function manage()
     {
-
-        return view('products.index', [
+        return view('dashboard.manage-products', [
             'categories' => Category::all(),
             'sizes' => Size::all(),
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
