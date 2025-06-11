@@ -25,6 +25,12 @@
 
         <!-- Mobile Toggle + Auth Button -->
         <div class="sm:order-3 flex items-center gap-x-2">
+            <!-- Notification Bell -->
+            <button type="button" class="relative inline-flex justify-center items-center size-11 text-sm font-semibold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none " aria-haspopup="dialog" aria-expanded="false" aria-controls="hs-offcanvas-right" data-hs-overlay="#hs-offcanvas-right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-basket-icon lucide-shopping-basket"><path d="m15 11-1 9"/><path d="m19 11-4-7"/><path d="M2 11h20"/><path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4"/><path d="M4.5 15.5h15"/><path d="m5 11 4-7"/><path d="m9 11 1 9"/></svg>
+                <span class="absolute top-0 end-0 inline-flex items-center py-0.5 px-1.5 rounded-full text-xs font-medium transform -translate-y-1/2 translate-x-1/2 bg-red-500 text-white">99+</span>
+            </button>
+
             <!-- Collapse Toggle -->
             <button type="button"
                     class="sm:hidden hs-collapse-toggle relative size-9 flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
@@ -43,6 +49,7 @@
                 </svg>
                 <span class="sr-only">Toggle navigation</span>
             </button>
+
             <!-- Auth Links as Button -->
             @if (Route::has('login'))
                 @auth
@@ -238,6 +245,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- Footer -->
 <footer class="w-full text-gray-700 bg-gray-100 body-font">
