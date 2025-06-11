@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class SizeController extends Controller
@@ -27,8 +28,15 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'label' => 'required|string|max:50|unique:sizes,label',
+        ], [], [], 'sizeCreation'); // 👈 named error bag
+
+        Size::create(['label' => $validated['label']]);
+
+        return redirect()->back()->with('success', 'Size added successfully.');
     }
+
 
     /**
      * Display the specified resource.

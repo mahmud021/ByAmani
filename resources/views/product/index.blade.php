@@ -10,52 +10,107 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex flex-col">
-                        <div class="-m-1.5 overflow-x-auto">
-                            <div class="p-1.5 min-w-full inline-block align-middle">
-                                <div class="border border-gray-200 rounded-lg overflow-hidden dark:border-neutral-700">
-                                    <table class="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Name</th>
-                                            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Age</th>
-                                            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Address</th>
-                                            <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">John Brown</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">45</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">New York No. 1 Lake Park</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
-                                            </td>
-                                        </tr>
 
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">Jim Green</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">27</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">London No. 1 Lake Park</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
-                                            </td>
-                                        </tr>
 
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">Joe Black</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">31</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">Sidney No. 1 Lake Park</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                                <button type="button" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-hidden focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                    <section class="space-y-6">
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                Add New Category
+                            </h2>
+
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                Create a new product category (e.g., Dresses, Sets, Accessories).
+                            </p>
+                        </header>
+
+                        <!-- Trigger Button -->
+                        <x-primary-button
+                            x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'create-category')"
+                        >
+                            + New Category
+                        </x-primary-button>
+
+                        <!-- Modal -->
+                        <x-modal name="create-category" :show="$errors->categoryCreation->isNotEmpty()" focusable>
+                            <form method="POST" action="{{ route('categories.store') }}" class="p-6">
+                                @csrf
+
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                                    New Category
+                                </h2>
+
+                                <!-- Name Field -->
+                                <div>
+                                    <x-input-label for="name" value="Category Name" />
+                                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required autofocus />
+                                    <x-input-error :messages="$errors->categoryCreation->get('name')" class="mt-2" />
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+
+                                <div class="mt-6 flex justify-end">
+                                    <x-secondary-button x-on:click="$dispatch('close')">
+                                        Cancel
+                                    </x-secondary-button>
+
+                                    <x-primary-button class="ms-3">
+                                        Save
+                                    </x-primary-button>
+                                </div>
+                            </form>
+                        </x-modal>
+                    </section>
+
+
+                    <section class="space-y-6 mt-10">
+                        <header>
+                            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                Add New Size
+                            </h2>
+
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                Create a new size label (e.g., 9-10 yrs, S, M, L).
+                            </p>
+                        </header>
+
+                        <!-- Trigger Button -->
+                        <x-primary-button
+                            x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'create-size')"
+                        >
+                            + New Size
+                        </x-primary-button>
+
+                        <!-- Modal -->
+                        <x-modal name="create-size" :show="$errors->sizeCreation->isNotEmpty()" focusable>
+                            <form method="POST" action="{{ route('sizes.store') }}" class="p-6">
+                                @csrf
+
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                                    New Size
+                                </h2>
+
+                                <!-- Label Field -->
+                                <div>
+                                    <x-input-label for="label" value="Size Label" />
+                                    <x-text-input id="label" name="label" type="text" class="mt-1 block w-full" required autofocus />
+                                    <x-input-error :messages="$errors->sizeCreation->get('label')" class="mt-2" />
+                                </div>
+
+                                <!-- Footer Buttons -->
+                                <div class="mt-6 flex justify-end">
+                                    <x-secondary-button x-on:click="$dispatch('close')">
+                                        Cancel
+                                    </x-secondary-button>
+
+                                    <x-primary-button class="ms-3">
+                                        Save
+                                    </x-primary-button>
+                                </div>
+                            </form>
+                        </x-modal>
+                    </section>
+
+
                 </div>
             </div>
         </div>
