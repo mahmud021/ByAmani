@@ -7,20 +7,23 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-sentient font-semibold mb-8 text-center">Categories</h2>
-            <!-- Category Tabs -->
-            <div class="border-b border-gray-200">
-                <nav class="-mb-0.5 flex justify-center gap-x-6" aria-label="Tabs" role="tablist">
-                    <button type="button" class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm text-gray-500 hover:text-blue-600"
+            <div class="border-b border-gray-200 ">
+                <nav class="-mb-0.5 flex justify-center gap-x-6" aria-label="Tabs" role="tablist"
+                     aria-orientation="horizontal">
+                    <button type="button"
+                            class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500 active"
                             id="horizontal-alignment-item-1" aria-selected="true" data-hs-tab="#horizontal-alignment-1"
                             aria-controls="horizontal-alignment-1" role="tab">
                         Category 1
                     </button>
-                    <button type="button" class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm text-gray-500 hover:text-blue-600"
+                    <button type="button"
+                            class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500"
                             id="horizontal-alignment-item-2" aria-selected="false" data-hs-tab="#horizontal-alignment-2"
                             aria-controls="horizontal-alignment-2" role="tab">
                         Category 2
                     </button>
-                    <button type="button" class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm text-gray-500 hover:text-blue-600"
+                    <button type="button"
+                            class="hs-tab-active:font-semibold hs-tab-active:border-blue-600 hs-tab-active:text-blue-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500"
                             id="horizontal-alignment-item-3" aria-selected="false" data-hs-tab="#horizontal-alignment-3"
                             aria-controls="horizontal-alignment-3" role="tab">
                         Category 3
@@ -28,13 +31,12 @@
                 </nav>
             </div>
 
-            <!-- Product Grids -->
             <div class="mt-3">
                 <div id="horizontal-alignment-1" role="tabpanel" aria-labelledby="horizontal-alignment-item-1">
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                         @foreach(range(1, 4) as $i)
                             @php $modalId = "preview-modal-$i"; @endphp
-                            {{-- Product Card + Modal --}}
+
                             <div class="w-full max-w-[200px] mx-auto bg-white rounded-xl shadow hover:scale-[1.02] transition duration-150 relative">
                                 <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?q=80&w=2070&auto=format&fit=crop"
                                      alt="Product {{ $i }}"
@@ -54,6 +56,7 @@
                                            class="w-full inline-block text-center py-1.5 text-sm font-medium text-white bg-gray-800 rounded-lg hover:bg-gray-700 transition">
                                             View Item
                                         </a>
+
                                         <button type="button"
                                                 class="w-full py-1.5 text-sm font-medium text-gray-800 border border-gray-200 rounded-lg bg-white hover:bg-gray-100 transition"
                                                 aria-haspopup="dialog"
@@ -77,8 +80,8 @@
                                                     data-hs-overlay="#{{ $modalId }}">
                                                 <svg class="size-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                      viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path d="M18 6 6 18"/>
-                                                    <path d="m6 6 12 12"/>
+                                                    <path d="M18 6 6 18"></path>
+                                                    <path d="m6 6 12 12"></path>
                                                 </svg>
                                                 <span class="sr-only">Close</span>
                                             </button>
@@ -128,7 +131,9 @@
                                                     </button>
                                                 </div>
 
-                                                <p class="text-sm text-gray-700">Free shipping included.</p>
+                                                <p class="text-sm text-gray-700">
+                                                    Free shipping included.
+                                                </p>
                                             </form>
                                         </div>
                                     </div>
@@ -136,14 +141,21 @@
                             </div>
                         @endforeach
                     </div>
-                </div>
 
-                <!-- Placeholder tabs -->
-                <div id="horizontal-alignment-2" class="hidden" role="tabpanel" aria-labelledby="horizontal-alignment-item-2">
-                    <p class="text-gray-500">This is the second category.</p>
                 </div>
-                <div id="horizontal-alignment-3" class="hidden" role="tabpanel" aria-labelledby="horizontal-alignment-item-3">
-                    <p class="text-gray-500">This is the third category.</p>
+                <div id="horizontal-alignment-2" class="hidden" role="tabpanel"
+                     aria-labelledby="horizontal-alignment-item-2">
+                    <p class="text-gray-500 dark:text-neutral-400">
+                        This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">second</em> item's tab
+                        body.
+                    </p>
+                </div>
+                <div id="horizontal-alignment-3" class="hidden" role="tabpanel"
+                     aria-labelledby="horizontal-alignment-item-3">
+                    <p class="text-gray-500 dark:text-neutral-400">
+                        This is the <em class="font-semibold text-gray-800 dark:text-neutral-200">third</em> item's tab
+                        body.
+                    </p>
                 </div>
             </div>
         </div>
