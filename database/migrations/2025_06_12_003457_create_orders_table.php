@@ -13,17 +13,32 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+
+            // customer + tracking
             $table->string('tracking_code')->unique();
             $table->string('customer_name');
             $table->string('customer_email')->nullable();
             $table->string('customer_phone')->nullable();
-            $table->string('customer_address')->nullable();
+            $table->string('customer_address');          // now required
+
+            // delivery locality + fee
+            $table->foreignId('locality_id')             // admin-managed list
+            ->nullable()                           // ← keep nullable for legacy rows
+            ->constrained()
+                ->nullOnDelete();
+            $table->decimal('delivery_fee', 10, 2)->default(0);
+
+            // extras
             $table->string('receipt')->nullable();
-            $table->string('status')->default('pending'); // pending, confirmed, cancelled
+            $table->string('status')->default('pending');   // pending, confirmed, cancelled
             $table->timestamp('receipt_uploaded_at')->nullable();
-            $table->decimal('total_amount', 10, 2);
+
+            // totals
+            $table->decimal('total_amount', 10, 2);         // items + delivery_fee
+
             $table->timestamps();
         });
+
     }
 
 

@@ -12,9 +12,12 @@ class Order extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
+        'customer_address',                // ⬅️ make sure this is here
         'delivery_address',
         'total_amount',
         'receipt',
+        'locality_id',
+        'delivery_fee',
         'receipt_uploaded_at',
         'tracking_code',
         'status',
@@ -22,7 +25,10 @@ class Order extends Model
     protected $casts = [
         'receipt_uploaded_at' => 'datetime',
     ];
-
+    public function locality()
+    {
+        return $this->belongsTo(Locality::class);
+    }
     public static function generateTrackingCode(): string
     {
         return 'AMN-' . strtoupper(Str::random(6));

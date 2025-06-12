@@ -24,9 +24,9 @@
                                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Phone</th>
                                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Total</th>
                                     <th class="px-6 py-3 text-left text-xs font-semibold text-gray-400 uppercase">Status</th>
-                                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-400 uppercase">Details</th>
-                                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-400 uppercase">Receipt</th>
-                                    <th class="px-6 py-3 text-right text-xs font-semibold text-gray-400 uppercase">Update</th>
+                                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-400 uppercase">Update</th>
+                                    <th class="px-6 py-3 text-center text-xs font-semibold text-gray-400 uppercase">View Order</th>
+                                    <th class="px-6 py-3 text-right text-xs font-semibold text-gray-400 uppercase">Receipt</th>
                                 </tr>
 
                                 </thead>
