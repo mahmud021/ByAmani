@@ -34,5 +34,3 @@
         </div>
     </div>
 </div>
-
-@include('components.shop.product-modal', ['product' => $product, 'modalId' => $modalId])

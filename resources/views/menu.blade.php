@@ -41,6 +41,19 @@
             </div>
         </div>
     </section>
+    {{-- Render all modals after the tabs --}}
+    @foreach($allProducts as $product)
+        @include('components.shop.product-modal', ['product' => $product, 'modalId' => 'product-modal-' . $product->id])
+    @endforeach
+
+    @foreach($categories as $category)
+        @foreach($category->products as $product)
+            @if(!$allProducts->contains($product)) {{-- Avoid duplicate modals --}}
+            @include('components.shop.product-modal', ['product' => $product, 'modalId' => 'product-modal-' . $product->id])
+            @endif
+        @endforeach
+    @endforeach
+
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
