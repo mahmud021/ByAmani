@@ -115,13 +115,11 @@
                     </div>
                     <p class="mt-0.5 text-sm text-[#7A8D73]">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
-                        <form method="POST" action="{{ route('order.checkout') }}">
-                            @csrf
-                            <button type="submit"
-                                    class="w-full flex items-center justify-center rounded-md border border-transparent bg-[#0D2F25] px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-[#143b30]">
-                                Checkout
-                            </button>
-                        </form>
+                        <a href="{{ route('checkout.index') }}"
+                           class="w-full flex items-center justify-center rounded-md border border-transparent bg-[#0D2F25] px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-[#143b30]">
+                            Checkout
+                        </a>
+
                     </div>
                     <div class="mt-6 flex justify-center text-center text-sm text-[#7A8D73]">
                         <p>
