@@ -39,6 +39,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(Request $request)
     {
         $validated = $request->validateWithBag('productCreation', [
@@ -58,10 +59,20 @@ class ProductController extends Controller
             $imagePath = $request->file('image')->store('products', 'public');
         }
 
+        // Generate base slug
+        $baseSlug = Str::slug($validated['name']);
+        $slug = $baseSlug;
+        $counter = 1;
+
+        // Ensure slug is unique
+        while (Product::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . $counter++;
+        }
+
         // Create the product
         $product = Product::create([
             'name' => $validated['name'],
-            'slug' => Str::slug($validated['name']),
+            'slug' => $slug,
             'description' => $validated['description'] ?? null,
             'stock' => $validated['stock'],
             'category_id' => $validated['category_id'],
@@ -73,7 +84,6 @@ class ProductController extends Controller
         // Attach sizes if provided
         foreach ($request->input('sizes', []) as $sizeId => $data) {
             if (isset($data['selected']) && is_numeric($data['price'])) {
-                // Optionally: Validate the size exists first
                 if (Size::where('id', $sizeId)->exists()) {
                     $product->sizes()->attach($sizeId, [
                         'price' => $data['price'],
@@ -82,7 +92,6 @@ class ProductController extends Controller
             }
         }
 
-
         return redirect()->back()->with('success', 'Product created successfully.');
     }
 
@@ -90,9 +99,11 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($slug)
     {
-        //
+        $product = Product::with(['category', 'sizes'])->where('slug', $slug)->firstOrFail();
+
+        return view('products.show', compact('product'));
     }
 
     /**

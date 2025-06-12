@@ -21,10 +21,11 @@
             <p class="text-base font-bold text-[#7A8D73]">From ₦{{ number_format($minPrice) }}</p>
         </div>
         <div class="mt-auto space-y-2">
-            <a href="{{ route('products.show', $product) }}"
+            <a href="{{ route('products.show', $product->slug) }}"
                class="w-full inline-block text-center py-1.5 text-sm font-medium text-white bg-[#0D2F25] rounded-lg hover:bg-[#143b30] transition">
                 View Item
             </a>
+
             <button type="button"
                     class="w-full py-1.5 text-sm font-medium text-[#0D2F25] border border-[#A6977C] rounded-lg bg-white hover:bg-[#f2efe9] transition"
                     onclick="openModal('{{ $modalId }}')">

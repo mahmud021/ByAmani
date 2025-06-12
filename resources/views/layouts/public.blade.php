@@ -30,7 +30,9 @@
     </main>
 
     {{-- Footer --}}
-    @include('partials.footer')
+    @if (!isset($hideFooter))
+        @include('partials.footer')
+    @endif
 
     @stack('scripts')
 </body>
