@@ -2,7 +2,7 @@
 
 <div class=" border-[#0D2F25]">
     <div class="mx-auto max-w-4xl px-4">
-        <nav class="pb-1 flex gap-x-3 overflow-x-auto -mb-0.5
+        <nav class="pb-1 justify-center flex gap-x-3 overflow-x-auto -mb-0.5
                     [&::-webkit-scrollbar]:h-2
                     [&::-webkit-scrollbar-thumb]:rounded-full
                     [&::-webkit-scrollbar-track]:bg-[#F3F2EF]
