@@ -12,7 +12,12 @@
             <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4"/>
             <path d="M4.5 15.5h15"/><path d="m5 11 4-7"/><path d="m9 11 1 9"/>
         </svg>
-        <span class="absolute top-0 end-0 inline-flex items-center py-0.5 px-1.5 rounded-full text-xs font-medium transform -translate-y-1/2 translate-x-1/2 bg-red-500 text-white">99+</span>
+        {{-- Dynamic badge --}}
+        @if($totalQuantity > 0)
+            <span class="absolute top-0 end-0 inline-flex items-center py-0.5 px-1.5 rounded-full text-xs font-medium transform -translate-y-1/2 translate-x-1/2 bg-red-500 text-white">
+            {{ $totalQuantity > 99 ? '99+' : $totalQuantity }}
+        </span>
+        @endif
     </button>
 
     <!-- Backdrop -->
