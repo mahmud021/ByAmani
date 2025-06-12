@@ -41,47 +41,44 @@
                         <!-- Size -->
                         <div class="mt-6">
                             <h4 class="text-sm font-medium text-[#0D2F25]">Size</h4>
-                            <div class="mt-2 grid grid-cols-3 gap-2">
-                                @foreach($product->sizes as $size)
-                                    <label class="relative">
-                                        <input type="radio" name="size" value="{{ $size->id }}" class="sr-only peer" @if($loop->first) checked @endif>
-                                        <div class="w-full p-2 border rounded-md text-center cursor-pointer peer-checked:border-[#0D2F25] peer-checked:bg-[#F3F2EF]">
-                                            <span class="block text-sm font-semibold text-[#0D2F25]">{{ $size->label }}</span>
-                                            <span class="block mt-1 text-sm font-medium text-[#7A8D73]">₦{{ number_format($size->pivot->price) }}</span>
-                                        </div>
-                                    </label>
-                                @endforeach
-                            </div>
-                        </div>
 
-                        <!-- Stock -->
-                        <div class="mt-4">
-                            @if($product->stock > 0)
-                                <span class="text-sm font-medium text-green-700">In stock</span>
-                            @else
-                                <span class="text-sm font-medium text-[#E15858]">Out of stock</span>
-                            @endif
-                        </div>
+                            <form action="{{ route('cart.add') }}" method="POST" class="w-full mt-2">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="quantity" value="1">
 
-                        <!-- Actions -->
-                        <div class="mt-6">
-                            <!-- Action Buttons -->
-                            <div class="flex gap-3">
-                                <button type="button"
-                                        class="flex-1 bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
+                                <div class="grid grid-cols-3 gap-2">
+                                    @foreach($product->sizes as $size)
+                                        <label class="relative">
+                                            <input type="radio" name="size_id" value="{{ $size->id }}"
+                                                   class="sr-only peer" @if($loop->first) checked @endif>
+
+                                            <div class="w-full p-2 border rounded-md text-center cursor-pointer peer-checked:border-[#0D2F25] peer-checked:bg-[#F3F2EF]">
+                                                <span class="block text-sm font-semibold text-[#0D2F25]">{{ $size->label }}</span>
+                                                <span class="block mt-1 text-sm font-medium text-[#7A8D73]">₦{{ number_format($size->pivot->price) }}</span>
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                </div>
+
+                                <!-- Stock -->
+                                <div class="mt-4">
+                                    @if($product->stock > 0)
+                                        <span class="text-sm font-medium text-green-700">In stock</span>
+                                    @else
+                                        <span class="text-sm font-medium text-[#E15858]">Out of stock</span>
+                                    @endif
+                                </div>
+
+                                <!-- Add to Cart -->
+                                <button type="submit"
+                                        class="mt-4 w-full bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
                                         @if($product->stock <= 0) disabled @endif>
                                     Add to Cart
                                 </button>
-                            </div>
-
-                            <!-- View Full Page Link -->
-                            <div class="mt-4 text-center">
-                                <a href="{{ route('products.show', $product->slug) }}"
-                                   class="inline-block text-sm font-medium text-[#0D2F25] hover:text-[#143b30] underline transition">
-                                    View full product page
-                                </a>
-                            </div>
+                            </form>
                         </div>
+
 
                         <!-- Info -->
                         <p class="mt-4 text-sm text-[#7A8D73]"></p>

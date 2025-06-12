@@ -61,32 +61,42 @@
                     <div class="mt-8">
                         <div class="flow-root">
                             <ul role="list" class="-my-6 divide-y divide-[#A6977C]/40">
-                                <!-- Repeat for each cart item -->
-                                <li class="flex py-6">
-                                    <div class="size-24 shrink-0 overflow-hidden rounded-md border border-[#A6977C]/50">
-                                        <img src="https://tailwindcss.com/plus-assets/img/ecommerce-images/shopping-cart-page-04-product-01.jpg"
-                                             alt="Product image" class="size-full object-cover">
-                                    </div>
-                                    <div class="ml-4 flex flex-1 flex-col">
-                                        <div>
-                                            <div class="flex justify-between text-base font-medium text-[#0D2F25]">
-                                                <h3><a href="#">Throwback Hip Bag</a></h3>
-                                                <p class="ml-4">$90.00</p>
-                                            </div>
-                                            <p class="mt-1 text-sm text-[#7A8D73]">Salmon</p>
+                                @forelse($cart as $key => $item)
+                                    <li class="flex py-6">
+                                        <div class="size-24 shrink-0 overflow-hidden rounded-md border border-[#A6977C]/50">
+                                            <img src="{{ asset('storage/' . $item['image']) }}"
+                                                 alt="{{ $item['product_name'] ?? $item['name'] ?? 'Unnamed Product' }}"
+                                                 class="size-full object-cover">
                                         </div>
-                                        <div class="flex flex-1 items-end justify-between text-sm">
-                                            <p class="text-[#7A8D73]">Qty 1</p>
-                                            <div class="flex">
-                                                <button type="button"
-                                                        class="font-medium text-[#7A8D73] hover:text-[#0D2F25]">
-                                                    Remove
-                                                </button>
+                                        <div class="ml-4 flex flex-1 flex-col">
+                                            <div>
+                                                <div class="flex justify-between text-base font-medium text-[#0D2F25]">
+                                                    <h3>
+                                                        <a href="#">
+                                                            {{ $item['product_name'] ?? $item['name'] ?? 'Unnamed Product' }} ({{ $item['size_label'] }})                                                        </a>
+                                                    </h3>
+                                                    <p class="ml-4">₦{{ number_format($item['price'] * $item['quantity']) }}</p>
+
+                                                </div>
+                                            </div>
+                                            <div class="flex flex-1 items-end justify-between text-sm">
+                                                <p class="text-[#7A8D73]">Qty {{ $item['quantity'] }}</p>
+                                                <div class="flex">
+                                                    <form method="POST" action="{{ route('cart.remove') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $item['product_id'] }}">
+                                                        <input type="hidden" name="size_id" value="{{ $item['size_id'] }}">
+                                                        <button type="submit" class="font-medium text-[#7A8D73] hover:text-[#0D2F25]">
+                                                            Remove
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <!-- More items... -->
+                                    </li>
+                                @empty
+                                    <li class="text-center py-6 text-[#7A8D73]">Your cart is empty.</li>
+                                @endforelse
                             </ul>
                         </div>
                     </div>
@@ -96,14 +106,17 @@
                 <div class="border-t border-[#A6977C]/40 px-4 py-6 sm:px-6">
                     <div class="flex justify-between text-base font-medium text-[#0D2F25]">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>₦{{ number_format($subtotal ?? 0) }}</p>
                     </div>
                     <p class="mt-0.5 text-sm text-[#7A8D73]">Shipping and taxes calculated at checkout.</p>
                     <div class="mt-6">
-                        <a href="#"
-                           class="flex items-center justify-center rounded-md border border-transparent bg-[#0D2F25] px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-[#143b30]">
-                            Checkout
-                        </a>
+                        <form method="POST" action="{{ route('order.checkout') }}">
+                            @csrf
+                            <button type="submit"
+                                    class="w-full flex items-center justify-center rounded-md border border-transparent bg-[#0D2F25] px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-[#143b30]">
+                                Checkout
+                            </button>
+                        </form>
                     </div>
                     <div class="mt-6 flex justify-center text-center text-sm text-[#7A8D73]">
                         <p>
