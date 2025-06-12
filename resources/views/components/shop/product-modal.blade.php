@@ -64,19 +64,23 @@
                         </div>
 
                         <!-- Actions -->
-                        <div class="mt-6 flex gap-3">
-                            <button type="button"
-                                    class="flex-1 bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
-                                    @if($product->stock <= 0) disabled @endif>
-                                Add to Cart
-                            </button>
-                            <button type="button" class="p-2 border border-[#7A8D73] rounded-md hover:bg-[#F3F2EF]">
-                                <svg class="w-5 h-5 text-[#0D2F25]" fill="none" stroke="currentColor" stroke-width="2"
-                                     viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                            </button>
+                        <div class="mt-6">
+                            <!-- Action Buttons -->
+                            <div class="flex gap-3">
+                                <button type="button"
+                                        class="flex-1 bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
+                                        @if($product->stock <= 0) disabled @endif>
+                                    Add to Cart
+                                </button>
+                            </div>
+
+                            <!-- View Full Page Link -->
+                            <div class="mt-4 text-center">
+                                <a href="{{ route('products.show', $product->slug) }}"
+                                   class="inline-block text-sm font-medium text-[#0D2F25] hover:text-[#143b30] underline transition">
+                                    View full product page
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Info -->
