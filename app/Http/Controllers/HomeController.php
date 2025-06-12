@@ -10,7 +10,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::take(4)->get(); // Only fetch 4
 
         // Predefined image list
         $images = [
@@ -30,4 +30,5 @@ class HomeController extends Controller
             'categories' => $categoriesWithImages
         ]);
     }
+
 }
