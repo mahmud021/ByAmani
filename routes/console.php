@@ -65,7 +65,7 @@ Artisan::command('seed:static', function () {
                 'category_id' => $category->id,
                 'stock' => $data['stock'],
                 'is_featured' => false,
-                'status' => 'active',
+                'status' => true, // or false as needed
             ]
         );
     }
