@@ -70,7 +70,6 @@
                                 @forelse($cart as $key => $item)
                                     <li class="flex py-6">
                                         <div class="size-24 shrink-0 overflow-hidden rounded-md border border-[#A6977C]/50">
-                                            @php use Illuminate\Support\Facades\Storage; @endphp
                                             <img src="{{ Storage::disk('public_assets')->url($item['image']) }}"
                                                  alt="{{ $item['product_name'] ?? $item['name'] ?? 'Unnamed Product' }}"
                                                  class="size-full object-cover">
