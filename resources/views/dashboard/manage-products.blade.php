@@ -50,4 +50,45 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const tabButtons = document.querySelectorAll('[role="tab"]');
+                const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+                function activateTab(tabId) {
+                    const targetBtn = Array.from(tabButtons).find(btn => btn.getAttribute('data-hs-tab') === `#${tabId}`);
+                    const targetPanel = document.getElementById(tabId);
+
+                    if (!targetBtn || !targetPanel) return;
+
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-selected', 'false');
+                    });
+                    tabPanels.forEach(panel => panel.classList.add('hidden'));
+
+                    targetBtn.classList.add('active');
+                    targetBtn.setAttribute('aria-selected', 'true');
+                    targetPanel.classList.remove('hidden');
+                }
+
+                const hash = window.location.hash;
+                if (hash) activateTab(hash.replace('#', ''));
+
+                tabButtons.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const tabId = btn.getAttribute('data-hs-tab').replace('#', '');
+                        window.location.hash = tabId;
+                        activateTab(tabId);
+                    });
+                });
+
+                window.addEventListener('hashchange', () => {
+                    activateTab(window.location.hash.replace('#', ''));
+                });
+            });
+        </script>
+    @endpush
+
 </x-app-layout>
