@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_email')->nullable();
             $table->string('customer_phone')->nullable();
             $table->string('customer_address')->nullable();
+            $table->string('receipt')->nullable();
             $table->string('status')->default('pending'); // pending, confirmed, cancelled
             $table->decimal('total_amount', 10, 2);
             $table->timestamps();

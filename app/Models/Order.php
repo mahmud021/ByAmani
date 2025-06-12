@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Order extends Model
 {
@@ -13,8 +14,15 @@ class Order extends Model
         'customer_phone',
         'delivery_address',
         'total_amount',
+        'receipt', // 👈 Add this
+        'tracking_code',
         'status',
     ];
+
+    public static function generateTrackingCode(): string
+    {
+        return 'AMN-' . strtoupper(Str::random(6));
+    }
 
     public function items()
     {

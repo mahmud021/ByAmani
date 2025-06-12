@@ -6,15 +6,34 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
 
-    public static function generateTrackingCode(): string
+
+    public function uploadReceipt(Request $request, $id)
     {
-        return 'AMN-' . strtoupper(Str::random(6));
+        $request->validate([
+            'receipt' => 'required|file|mimes:jpeg,jpg,png,pdf|max:2048',
+        ]);
+
+        $order = Order::findOrFail($id);
+
+        // Optional: delete old receipt
+        if ($order->receipt) {
+            Storage::disk('local')->delete($order->receipt);
+        }
+
+        // Store file in storage/app/receipts
+        $path = $request->file('receipt')->store('receipts', 'public');
+
+        $order->update(['receipt' => $path]);
+
+        return back()->with('success', 'Receipt uploaded successfully!');
     }
+
 
     public function placeOrder(Request $request)
     {

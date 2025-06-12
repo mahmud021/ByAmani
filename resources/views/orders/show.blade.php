@@ -6,6 +6,11 @@
     <section class="py-16 bg-[#F4F1EC] min-h-screen">
         <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-3xl font-bold text-[#0D2F25] mb-6">Order Summary</h2>
+            @if(session('success'))
+                <div class="mb-6 bg-green-100 text-green-800 text-sm font-medium px-4 py-3 rounded shadow">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <!-- Order Info -->
             <div class="bg-white p-6 rounded-lg shadow mb-8 space-y-2">
@@ -78,6 +83,15 @@
                         Upload Receipt
                     </button>
                 </form>
+                @if ($order->receipt)
+                    <div class="mt-4 text-sm text-[#0D2F25]">
+                        <strong>Uploaded Receipt:</strong>
+                        <a href="{{ asset('storage/' . $order->receipt) }}" target="_blank" class="underline text-blue-600">
+                            View Receipt
+                        </a>
+                    </div>
+                @endif
+
             </div>
         </div>
     </section>
