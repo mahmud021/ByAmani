@@ -6,9 +6,16 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
+
+    public static function generateTrackingCode(): string
+    {
+        return 'AMN-' . strtoupper(Str::random(6));
+    }
+
     public function placeOrder(Request $request)
     {
         $validated = $request->validate([
@@ -28,6 +35,7 @@ class OrderController extends Controller
         $total = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
 
         $order = Order::create([
+            'tracking_code' => Order::generateTrackingCode(),
             'customer_name' => $validated['name'],
             'customer_email' => $validated['email'] ?? null,
             'customer_phone' => $validated['phone'],

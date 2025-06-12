@@ -9,7 +9,7 @@
 
             <!-- Order Info -->
             <div class="bg-white p-6 rounded-lg shadow mb-8 space-y-2">
-                <p><strong>Order ID:</strong> #{{ $order->id }}</p>
+                <p><strong>Tracking Code:</strong> {{ $order->tracking_code }}</p>
                 <p><strong>Name:</strong> {{ $order->customer_name }}</p>
                 <p><strong>Phone:</strong> {{ $order->customer_phone }}</p>
                 @if($order->customer_email)
@@ -17,13 +17,8 @@
                 @endif
                 <p><strong>Address:</strong> {{ $order->customer_address }}</p>
                 <p><strong>Status:</strong>
-                    <span class="inline-block px-2 py-1 text-sm rounded-full
-                        @if($order->status === 'pending') bg-yellow-100 text-yellow-700
-                        @elseif($order->status === 'confirmed') bg-green-100 text-green-700
-                        @elseif($order->status === 'cancelled') bg-red-100 text-red-700
-                        @endif">
-                        {{ ucfirst($order->status) }}
-                    </span>
+                    <x-badge>{{ $order->status }}</x-badge>
+
                 </p>
             </div>
 

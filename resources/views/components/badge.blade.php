@@ -28,18 +28,19 @@
                     d="M5 13l4 4L19 7" />
             </svg>
         SVG],
+        'pending' => ['color' => 'bg-yellow-100 text-yellow-700', 'icon' => null],
+        'confirmed' => ['color' => 'bg-green-100 text-green-700', 'icon' => null],
+        'cancelled' => ['color' => 'bg-red-100 text-red-700', 'icon' => null],
     ];
 
-    $color = $map[$label]['color'] ?? 'bg-gray-100 text-gray-800';
-    $icon = $map[$label]['icon'] ?? null;
+    $lower = strtolower($label);
+    $color = $map[$lower]['color'] ?? $map[$label]['color'] ?? 'bg-gray-100 text-gray-800';
+    $icon = $map[$lower]['icon'] ?? $map[$label]['icon'] ?? null;
 @endphp
 
 <span class="inline-flex items-center gap-x-1 text-xs font-medium px-2 py-1 rounded-full {{ $color }} {{ $class }}">
     @if ($icon)
         {!! $icon !!}
     @endif
-    {{ $label }}
+    {{ ucfirst($label) }}
 </span>
-<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
