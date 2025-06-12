@@ -58,7 +58,7 @@ class ProductController extends Controller
         // Handle image upload if present
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
+            $imagePath = $request->file('image')->store('products', 'public_assets');
         }
 
         // Generate base slug

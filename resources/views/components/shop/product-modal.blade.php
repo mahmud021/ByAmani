@@ -1,5 +1,7 @@
 @props(['product', 'modalId'])
 
+@php use Illuminate\Support\Facades\Storage; @endphp
+
 <div id="{{ $modalId }}" class="relative z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="{{ $modalId }}-title">
     <div id="{{ $modalId }}-backdrop" class="fixed inset-0 bg-[#0D2F25]/60 transition-opacity opacity-0" aria-hidden="true"></div>
 
@@ -20,7 +22,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 text-left">
                     <!-- Image -->
                     <div>
-                        <img src="{{ asset('storage/' . $product->image) }}"
+                        <img src="{{ Storage::disk('public_assets')->url($product->image) }}"
                              alt="{{ $product->name }}"
                              class="w-full max-h-[350px] object-cover rounded-lg bg-[#F3F2EF]">
                     </div>

@@ -1,4 +1,5 @@
 <x-app-layout>
+    @php use Illuminate\Support\Facades\Storage; @endphp
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('All Orders') }}
@@ -82,12 +83,13 @@
                                         <div class="p-6">
                                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Receipt Preview</h2>
 
+                                            @php use Illuminate\Support\Facades\Storage; @endphp
                                             @if(Str::endsWith($order->receipt, ['.jpg', '.jpeg', '.png', '.webp']))
-                                                <img src="{{ asset('storage/' . $order->receipt) }}"
+                                                <img src="{{ Storage::disk('private_docs')->temporaryUrl($order->receipt, now()->addMinutes(5)) }}"
                                                      alt="Receipt Image"
                                                      class="w-full rounded-md shadow">
                                             @elseif(Str::endsWith($order->receipt, '.pdf'))
-                                                <iframe src="{{ asset('storage/' . $order->receipt) }}"
+                                                <iframe src="{{ Storage::disk('private_docs')->temporaryUrl($order->receipt, now()->addMinutes(5)) }}"
                                                         class="w-full h-96 rounded-md border border-gray-200"></iframe>
                                             @else
                                                 <p class="text-sm text-gray-500">No valid preview available for this file.</p>

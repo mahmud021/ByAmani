@@ -8,7 +8,8 @@
         <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6 sm:p-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Left: Product Image -->
             <div>
-                <img src="{{ asset('storage/' . $product->image) }}"
+                @php use Illuminate\Support\Facades\Storage; @endphp
+                <img src="{{ Storage::disk('public_assets')->url($product->image) }}"
                      alt="{{ $product->name }}"
                      class="w-full max-h-[450px] object-cover rounded-md bg-[#F3F2EF]">
             </div>

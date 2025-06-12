@@ -1,9 +1,12 @@
 @props(['product'])
 
-@php $modalId = "product-modal-{$product->id}"; @endphp
+@php
+    use Illuminate\Support\Facades\Storage;
+    $modalId = "product-modal-{$product->id}";
+@endphp
 
 <div class="w-full max-w-[200px] mx-auto bg-white rounded-xl shadow hover:scale-[1.02] transition duration-150 relative">
-    <img src="{{ asset('storage/' . $product->image) }}"
+    <img src="{{ Storage::disk('public_assets')->url($product->image) }}"
          alt="{{ $product->name }}"
          class="w-full h-56 rounded-t-xl object-cover object-center">
 
