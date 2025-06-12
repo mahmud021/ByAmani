@@ -41,7 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/products/{product}/deactivate', [ProductController::class, 'deactivate'])->name('products.deactivate');
 
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-
+    Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');
+    Route::patch('/orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 // Size Store Route
     Route::post('/sizes', [SizeController::class, 'store'])->name('sizes.store');
 });
