@@ -3,6 +3,8 @@
 
 @section('title', 'Order Summary')
 
+@php use Illuminate\Support\Facades\Storage; @endphp
+
 @section('content')
     <section class="py-16 bg-gradient-to-b from-[#F9F5F0] to-[#F4F1EC] min-h-screen">
         <div class="container mx-auto px-6 max-w-5xl">
@@ -166,7 +168,7 @@
                                           clip-rule="evenodd"/>
                                 </svg>
                                 <strong class="font-medium">Uploaded Receipt:</strong>
-                                <a href="{{ asset('storage/' . $order->receipt) }}"
+                                <a href="{{ Storage::disk('private_docs')->temporaryUrl($order->receipt, now()->addMinutes(5)) }}"
                                    target="_blank"
                                    class="ml-2 underline text-[#FF6F5C] hover:text-[#E65A4A]">
                                     View

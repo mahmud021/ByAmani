@@ -22,14 +22,15 @@ class OrderController extends Controller
 
         $order = Order::findOrFail($id);
 
+
         // Optional: delete old receipt
         if ($order->receipt) {
-            Storage::disk('local')->delete($order->receipt);
+            Storage::disk('private_docs')->delete($order->receipt);
         }
 
 
-        // Store file in storage/app/receipts
-        $path = $request->file('receipt')->store('receipts', 'public');
+        // Store file on the private_docs disk
+        $path = $request->file('receipt')->store('receipts', 'private_docs');
 
         $order->update([
             'receipt' => $path,
