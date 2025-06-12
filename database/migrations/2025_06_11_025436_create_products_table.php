@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->integer('stock')->default(0);
             $table->boolean('is_featured')->default(false);
-            $table->boolean('status')->default(true); // true = active
+            $table->string('status')->default('active');
             $table->string('image')->nullable(); // image path
             $table->timestamps();
         });
