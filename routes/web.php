@@ -43,7 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');
     Route::patch('/orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
-// Size Store Route
+    Route::get('/admin/orders/{order}', [\App\Http\Controllers\Admin\OrderController::class, 'show'])
+        ->name('admin.orders.show');
     Route::post('/sizes', [SizeController::class, 'store'])->name('sizes.store');
 });
 

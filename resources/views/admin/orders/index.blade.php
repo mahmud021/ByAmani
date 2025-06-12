@@ -57,8 +57,12 @@
                                             </form>
                                         </td>
                                         <td class="px-6 py-4 text-center">
-                                            <a href="{{ route('orders.show', $order) }}" class="text-sm text-blue-500 hover:underline">View</a>
+                                            <a href="{{ route('admin.orders.show', $order) }}"
+                                               class="text-sm text-blue-500 hover:underline">
+                                                View
+                                            </a>
                                         </td>
+
 
                                         <td class="px-6 py-4 text-center">
                                             @if($order->receipt)
