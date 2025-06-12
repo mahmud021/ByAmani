@@ -16,10 +16,7 @@
                     <p><strong>Email:</strong> {{ $order->customer_email }}</p>
                 @endif
                 <p><strong>Address:</strong> {{ $order->customer_address }}</p>
-                <p><strong>Status:</strong>
-                    <x-badge>{{ $order->status }}</x-badge>
-
-                </p>
+                <p><strong>Status:</strong> <x-badge>{{ $order->status }}</x-badge></p>
             </div>
 
             <!-- Items Table -->
@@ -55,16 +52,30 @@
                 </table>
             </div>
 
-            <!-- Upload Receipt (optional feature) -->
+            <!-- 🏦 Payment Instructions -->
+            <div class="bg-white p-6 rounded-lg shadow mb-8 border-l-4 border-[#0D2F25]">
+                <h3 class="text-lg font-bold text-[#0D2F25] mb-2">Kindly make payment to:</h3>
+                <ul class="text-sm text-[#0D2F25] space-y-1">
+                    <li><strong>Account Number:</strong> 1234567890</li>
+                    <li><strong>Bank Name:</strong> Zenith Bank</li>
+                    <li><strong>Account Name:</strong> Amani Clothing Store</li>
+                </ul>
+
+                <div class="mt-4 p-4 rounded bg-yellow-50 border border-yellow-200 text-yellow-900 text-sm">
+                    <strong>Important:</strong> Please upload a clear screenshot or PDF of your payment receipt below so we can confirm and process your order.
+                </div>
+            </div>
+
+            <!-- 📤 Upload Receipt -->
             <div class="bg-white p-6 rounded-lg shadow">
-                <h3 class="text-lg font-semibold text-[#0D2F25] mb-4">Upload Receipt (Optional)</h3>
+                <h3 class="text-lg font-semibold text-[#0D2F25] mb-4">Upload Receipt</h3>
                 <form action="{{ route('orders.upload-receipt', $order->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="receipt" accept="image/*,application/pdf"
-                           class="block w-full mb-4 border rounded p-2">
+                           class="block w-full mb-4 border rounded p-2 text-sm">
                     <button type="submit"
                             class="bg-[#0D2F25] text-white px-4 py-2 rounded hover:bg-[#143b30] transition">
-                        Upload
+                        Upload Receipt
                     </button>
                 </form>
             </div>
