@@ -14,9 +14,13 @@ class Order extends Model
         'customer_phone',
         'delivery_address',
         'total_amount',
-        'receipt', // 👈 Add this
+        'receipt',
+        'receipt_uploaded_at',
         'tracking_code',
         'status',
+    ];
+    protected $casts = [
+        'receipt_uploaded_at' => 'datetime',
     ];
 
     public static function generateTrackingCode(): string

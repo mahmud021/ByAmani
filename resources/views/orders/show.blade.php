@@ -22,6 +22,9 @@
                 @endif
                 <p><strong>Address:</strong> {{ $order->customer_address }}</p>
                 <p><strong>Status:</strong> <x-badge>{{ $order->status }}</x-badge></p>
+                @if($order->receipt_uploaded_at)
+                    <p><strong>Receipt Uploaded At:</strong> {{ $order->receipt_uploaded_at->format('F j, Y h:i A') }}</p>
+                @endif
             </div>
 
             <!-- Items Table -->

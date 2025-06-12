@@ -26,10 +26,15 @@ class OrderController extends Controller
             Storage::disk('local')->delete($order->receipt);
         }
 
+
         // Store file in storage/app/receipts
         $path = $request->file('receipt')->store('receipts', 'public');
 
-        $order->update(['receipt' => $path]);
+        $order->update([
+            'receipt' => $path,
+            'status' => 'receipt_uploaded',
+            'receipt_uploaded_at' => now(),
+        ]);
 
         return back()->with('success', 'Receipt uploaded successfully!');
     }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('customer_address')->nullable();
             $table->string('receipt')->nullable();
             $table->string('status')->default('pending'); // pending, confirmed, cancelled
+            $table->timestamp('receipt_uploaded_at')->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->timestamps();
         });
