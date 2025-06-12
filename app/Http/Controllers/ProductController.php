@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Locality;
 use App\Models\Product;
 use App\Models\Size;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class ProductController extends Controller
             'categories' => Category::all(),
             'sizes' => Size::all(),
             'products' => Product::with('sizes')->where('status', 'active')->get(),
+            'localities' => Locality::all(),
         ]);
     }
 

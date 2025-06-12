@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Locality;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LocalityController extends Controller
 {
@@ -28,7 +29,14 @@ class LocalityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|unique:localities',
+            'delivery_fee' => 'required|numeric|min:0',
+        ], [], ['name' => 'locality name'])->validateWithBag('localityCreation');
+
+        Locality::create($request->all());
+
+        return redirect()->back()->with('status', 'Locality created successfully!');
     }
 
     /**

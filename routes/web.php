@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LocalityController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -45,7 +46,7 @@ Route::middleware('auth')->group(function () {
         ->name('admin.orders.show');
     Route::post('/sizes', [SizeController::class, 'store'])->name('sizes.store');
 });
-
+Route::resource('localities', LocalityController::class)->only(['index', 'store']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

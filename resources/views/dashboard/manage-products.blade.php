@@ -35,6 +35,13 @@
                                         aria-controls="vertical-tab-with-border-3" role="tab">
                                     Products
                                 </button>
+                                <button type="button"
+                                        class="hs-tab-active:border-blue-500 hs-tab-active:text-blue-600 dark:hs-tab-active:text-blue-600 py-1 pe-4 inline-flex items-center gap-x-2 border-e-2 border-transparent text-sm whitespace-nowrap text-gray-500 hover:text-blue-600 focus:outline-hidden focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-blue-500"
+                                        id="vertical-tab-with-border-item-4" aria-selected="false"
+                                        data-hs-tab="#vertical-tab-with-border-4"
+                                        aria-controls="vertical-tab-with-border-4" role="tab">
+                                    Localities
+                                </button>
                             </nav>
                         </div>
 
@@ -42,6 +49,7 @@
                             @include('dashboard.tabs.category')
                             @include('dashboard.tabs.size')
                             @include('dashboard.tabs.product')
+                            @include('dashboard.tabs.locality')
                         </div>
 
                     </div>
