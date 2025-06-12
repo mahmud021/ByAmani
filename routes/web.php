@@ -25,8 +25,11 @@ Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('orde
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'placeOrder'])->name('checkout.place');
 
+Route::post('/checkout', [OrderController::class, 'placeOrder'])->name('checkout.place');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 
-
+Route::post('/orders/{id}/upload-receipt', [OrderController::class, 'uploadReceipt'])
+    ->name('orders.upload-receipt');
 
 Route::middleware('auth')->group(function () {
 
