@@ -16,7 +16,7 @@
 
     $imgUrl = is_string($imgPath) && trim($imgPath) !== ''
         ? Storage::disk('public_assets')->url($imgPath)
-        : asset('images/no image.jpeg'); // make sure this fallback image exists
+        : asset('images/no-image.jpeg'); // make sure this fallback image exists
 @endphp
 
 @section('content')
@@ -45,39 +45,45 @@
                 <!-- Description -->
                 <p class="mt-4 text-[#0D2F25]">{{ $product->description }}</p>
 
-                <!-- Sizes -->
-                <div class="mt-6">
-                    <h4 class="text-sm font-medium text-[#0D2F25]">Size</h4>
-                    <div class="mt-2 grid grid-cols-3 gap-2">
-                        @foreach($product->sizes as $size)
-                            <label class="relative">
-                                <input type="radio" name="size" value="{{ $size->id }}" class="sr-only peer" @if($loop->first) checked @endif>
-                                <div class="w-full p-2 border rounded-md text-center cursor-pointer peer-checked:border-[#0D2F25] peer-checked:bg-[#F3F2EF]">
-                                    <span class="block text-sm font-semibold text-[#0D2F25]">{{ $size->label }}</span>
-                                    <span class="block mt-1 text-sm font-medium text-[#7A8D73]">₦{{ number_format($size->pivot->price) }}</span>
-                                </div>
-                            </label>
-                        @endforeach
+                <!-- Add to Cart Form -->
+                <form action="{{ route('cart.add') }}" method="POST" class="w-full mt-6">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="quantity" value="1">
+
+                    <div>
+                        <h4 class="text-sm font-medium text-[#0D2F25] mb-2">Select Size</h4>
+                        <div class="grid grid-cols-3 gap-2">
+                            @foreach($product->sizes as $size)
+                                <label class="relative">
+                                    <input type="radio" name="size_id" value="{{ $size->id }}"
+                                           class="sr-only peer" @if($loop->first) checked @endif>
+
+                                    <div class="w-full p-2 border rounded-md text-center cursor-pointer peer-checked:border-[#0D2F25] peer-checked:bg-[#F3F2EF]">
+                                        <span class="block text-sm font-semibold text-[#0D2F25]">{{ $size->label }}</span>
+                                        <span class="block mt-1 text-sm font-medium text-[#7A8D73]">₦{{ number_format($size->pivot->price) }}</span>
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
 
-                <!-- Stock Status -->
-                <div class="mt-4">
-                    @if($product->stock > 0)
-                        <span class="text-sm font-medium text-green-700">In stock</span>
-                    @else
-                        <span class="text-sm font-medium text-[#E15858]">Out of stock</span>
-                    @endif
-                </div>
+                    <!-- Stock -->
+                    <div class="mt-4">
+                        @if($product->stock > 0)
+                            <span class="text-sm font-medium text-green-700">In stock</span>
+                        @else
+                            <span class="text-sm font-medium text-[#E15858]">Out of stock</span>
+                        @endif
+                    </div>
 
-                <!-- Buttons -->
-                <div class="mt-6 flex gap-3">
-                    <button type="button"
-                            class="flex-1 bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
+                    <!-- Add to Cart -->
+                    <button type="submit"
+                            class="mt-4 w-full bg-[#0D2F25] text-white px-4 py-2 rounded-md hover:bg-[#143b30] transition disabled:opacity-50"
                             @if($product->stock <= 0) disabled @endif>
                         Add to Cart
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
