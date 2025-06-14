@@ -1,6 +1,5 @@
-{{-- resources/views/admin/orders/show.blade.php --}}
+@php use Illuminate\Support\Facades\Storage; @endphp
 <x-app-layout>
-    @php use Illuminate\Support\Facades\Storage; @endphp
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 leading-tight">
             Order #{{ $order->tracking_code }}
@@ -137,7 +136,6 @@
                         @click="open=false"
                 >&times;</button>
 
-                @php use Illuminate\Support\Facades\Storage; @endphp
                 @if(Str::endsWith($order->receipt, ['.jpg', '.jpeg', '.png', '.webp']))
                     <img src="{{ Storage::disk('private_docs')->temporaryUrl($order->receipt, now()->addMinutes(5)) }}"
                          alt="Receipt"
