@@ -1,4 +1,6 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100 leading-tight">
