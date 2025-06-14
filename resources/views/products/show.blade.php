@@ -1,26 +1,29 @@
 @extends('layouts.public')
 
 @section('title', $product->name . ' | By Amani')
-@php($hideFooter = true)
+
+@php
+    use Illuminate\Support\Facades\Storage;
+    use Illuminate\Support\Facades\Log;
+
+    $hideFooter = true;
+
+    $imgPath = $product->image ?? null;
+
+    if (! is_string($imgPath) || trim($imgPath) === '') {
+        Log::warning('Missing product image', ['product_id' => $product->id]);
+    }
+
+    $imgUrl = is_string($imgPath) && trim($imgPath) !== ''
+        ? Storage::disk('public_assets')->url($imgPath)
+        : asset('images/no-image.jpeg'); // make sure this fallback image exists
+@endphp
 
 @section('content')
     <div class="bg-[#F3F2EF] py-16">
         <div class="max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6 sm:p-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Left: Product Image -->
             <div>
-                @php
-                    use Illuminate\Support\Facades\Storage;
-                    use Illuminate\Support\Facades\Log;
-
-                    $imgPath = $product->image ?? null;
-                    if (! is_string($imgPath) || trim($imgPath) === '') {
-                        Log::warning('Missing product image', ['product_id' => $product->id]);
-                    }
-
-                    $imgUrl = is_string($imgPath) && trim($imgPath) !== ''
-                        ? Storage::disk('public_assets')->url($imgPath)
-                        : asset('images/no image.jpeg');
-                @endphp
                 <img src="{{ $imgUrl }}"
                      alt="{{ $product->name }}"
                      class="w-full max-h-[450px] object-cover rounded-md bg-[#F3F2EF]">
