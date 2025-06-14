@@ -84,7 +84,6 @@
                                         <div class="p-6">
                                             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Receipt Preview</h2>
 
-                                            @php use Illuminate\Support\Facades\Storage; @endphp
                                             @if(Str::endsWith($order->receipt, ['.jpg', '.jpeg', '.png', '.webp']))
                                                 <img src="{{ Storage::disk('private_docs')->temporaryUrl($order->receipt, now()->addMinutes(5)) }}"
                                                      alt="Receipt Image"
