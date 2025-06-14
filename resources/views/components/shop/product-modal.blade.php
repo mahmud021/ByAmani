@@ -1,6 +1,13 @@
 @props(['product', 'modalId'])
 
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php
+    use Illuminate\Support\Facades\Storage;
+
+    $imagePath = $product->image ?? null;
+    $imgUrl = is_string($imagePath) && trim($imagePath) !== ''
+        ? Storage::disk('public_assets')->url($imagePath)
+        : asset('images/no image.jpeg');
+@endphp
 
 <div id="{{ $modalId }}" class="relative z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="{{ $modalId }}-title">
     <div id="{{ $modalId }}-backdrop" class="fixed inset-0 bg-[#0D2F25]/60 transition-opacity opacity-0" aria-hidden="true"></div>
@@ -22,9 +29,10 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6 text-left">
                     <!-- Image -->
                     <div>
-                        <img src="{{ Storage::disk('public_assets')->url($product->image) }}"
+                        <img src="{{ $imgUrl }}"
                              alt="{{ $product->name }}"
-                             class="w-full max-h-[350px] object-cover rounded-lg bg-[#F3F2EF]">
+                             class="w-full max-h-[350px] object-cover rounded-lg bg-[#F3F2EF]"
+                             onerror="this.onerror=null;this.src='{{ asset('images/no image.jpeg') }}';">
                     </div>
 
                     <!-- Info -->
@@ -81,7 +89,6 @@
                             </form>
                         </div>
 
-
                         <!-- Info -->
                         <p class="mt-4 text-sm text-[#7A8D73]"></p>
                     </div>
@@ -97,16 +104,13 @@
         const backdrop = document.getElementById(modalId + '-backdrop');
         const panel = document.getElementById(modalId + '-panel');
 
-        // Show elements
         modal.classList.remove('hidden');
 
-        // Trigger backdrop fade in
         setTimeout(() => {
             backdrop.classList.remove('opacity-0');
             backdrop.classList.add('opacity-100');
         }, 10);
 
-        // Trigger panel animation
         setTimeout(() => {
             panel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
             panel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
@@ -120,15 +124,12 @@
         const backdrop = document.getElementById(modalId + '-backdrop');
         const panel = document.getElementById(modalId + '-panel');
 
-        // Trigger panel animation
         panel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
         panel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
 
-        // Trigger backdrop fade out
         backdrop.classList.remove('opacity-100');
         backdrop.classList.add('opacity-0');
 
-        // Hide everything after animations complete
         setTimeout(() => {
             modal.classList.add('hidden');
             document.body.classList.remove('overflow-hidden');
