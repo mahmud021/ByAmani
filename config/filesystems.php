@@ -39,21 +39,29 @@ return [
         ],
 
         'private_docs' => [
-            'driver' => 'local',
-            'root' => storage_path('app/private'),
+            'driver' => 's3',
+            'key' => env('PRIVATE_DOCS_ACCESS_KEY'),
+            'secret' => env('PRIVATE_DOCS_SECRET'),
+            'region' => env('PRIVATE_DOCS_REGION'),
+            'bucket' => env('PRIVATE_DOCS_BUCKET'),
+            'url' => env('PRIVATE_DOCS_URL'),
+            'endpoint' => env('PRIVATE_DOCS_ENDPOINT'),
+            'use_path_style_endpoint' => env('PRIVATE_DOCS_USE_PATH_STYLE_ENDPOINT', false),
             'visibility' => 'private',
             'throw' => false,
-            'report' => false,
         ],
 
+
         'public_assets' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-            'throw' => false,
-            'report' => false,
+            'driver' => 's3',
+            'key' => env('PUBLIC_ASSETS_ACCESS_KEY'),
+            'secret' => env('PUBLIC_ASSETS_SECRET'),
+            'region' => env('PUBLIC_ASSETS_REGION'),
+            'bucket' => env('PUBLIC_ASSETS_BUCKET'),
+            'endpoint' => env('PUBLIC_ASSETS_ENDPOINT'),
+            'use_path_style_endpoint' => true,
         ],
+
 
         's3' => [
             'driver' => 's3',
