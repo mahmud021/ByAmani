@@ -1,4 +1,7 @@
-@php use Illuminate\Support\Facades\Storage; @endphp
+@php
+    use Illuminate\Support\Facades\Storage;
+    use Illuminate\Support\Facades\Log;
+@endphp
 <div x-data="{ drawerOpen: false }">
     <!-- Open Button -->
     <button @click="drawerOpen = true"
@@ -70,7 +73,17 @@
                                 @forelse($cart as $key => $item)
                                     <li class="flex py-6">
                                         <div class="size-24 shrink-0 overflow-hidden rounded-md border border-[#A6977C]/50">
-                                            <img src="{{ Storage::disk('public_assets')->url($item['image']) }}"
+                                            @php
+                                                $imgPath = $item['image'] ?? null;
+                                                if (! is_string($imgPath) || trim($imgPath) === '') {
+                                                    Log::warning('Missing cart item image', ['product_id' => $item['product_id'] ?? null]);
+                                                }
+
+                                                $imgUrl = is_string($imgPath) && trim($imgPath) !== ''
+                                                    ? Storage::disk('public_assets')->url($imgPath)
+                                                    : asset('images/no image.jpeg');
+                                            @endphp
+                                            <img src="{{ $imgUrl }}"
                                                  alt="{{ $item['product_name'] ?? $item['name'] ?? 'Unnamed Product' }}"
                                                  class="size-full object-cover">
                                         </div>
