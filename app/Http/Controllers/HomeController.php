@@ -17,9 +17,12 @@ class HomeController extends Controller
             ->latest()
             ->take(4)
             ->get();
+        $categories = Category::inRandomOrder()->take(6)->get();
 
         return view('welcome', [
             'featuredProducts' => $featuredProducts,
+            'categories' => $categories
+
         ]);
     }
 }
