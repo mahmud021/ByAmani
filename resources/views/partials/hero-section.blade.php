@@ -1,5 +1,4 @@
-<!-- Hero Section Partial -->
-<section class="px-6 md:px-20 py-12 bg-[#fbfaf9]" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+<section class="px-6 md:px-20 py-12 bg-[#fbfaf9]" style='font-family: "Raleway", sans-serif;'>
     <div class="layout-content-container flex flex-col max-w-[960px] w-full mx-auto">
         <div class="@container">
             <div class="@[480px]:p-4">
@@ -14,7 +13,7 @@
                 >
                     <!-- TEXT -->
                     <div class="flex flex-col gap-2 text-left">
-                        <h1 class="text-white text-4xl font-bold leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black">
+                        <h1 class="text-white text-4xl font-bold leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black" style='font-family: "Playfair Display", serif;'>
                             Handmade Crochet with Love by Amani
                         </h1>
                         <h2 class="text-white text-sm @[480px]:text-base font-normal leading-normal">
@@ -32,4 +31,3 @@
         </div>
     </div>
 </section>
-

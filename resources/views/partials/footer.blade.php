@@ -1,12 +1,12 @@
-<footer class="bg-[#fbfaf9] pt-16 pb-10 px-6">
+<footer class="bg-[#fbfaf9] pt-16 pb-10 px-6" style='font-family: "Raleway", sans-serif;'>
     <div class="max-w-6xl mx-auto text-center space-y-10">
-
-        <h2 class="text-3xl font-[Satisfy] text-[#181510] leading-tight">
+        <h2 class="text-3xl text-[#181510] leading-tight" style='font-family: "Playfair Display", serif;'>
             Let’s Create Something Special Together
         </h2>
 
         <!-- Contact CTA Button -->
-        <a href="#contact" class="inline-block bg-[#e0c6a3] text-[#181510] px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#d6b898] transition">
+        <a href="#contact"
+           class="inline-block bg-[#e0c6a3] text-[#181510] px-6 py-3 rounded-xl font-semibold text-sm hover:bg-[#d6b898] transition">
             Get in Touch
         </a>
 

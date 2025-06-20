@@ -1,12 +1,13 @@
-<!-- About/Meet the Maker Section Partial -->
-<section class="bg-[#fbfaf9] py-16 px-6 md:px-20 font-[Poppins]">
+<section class="bg-[#fbfaf9] py-16 px-6 md:px-20" style='font-family: "Raleway", sans-serif;'>
     <div class="max-w-5xl mx-auto flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
         <!-- TEXT -->
         <div class="flex-1 text-center md:text-left">
             <div class="mb-6">
                 <p class="text-sm font-semibold uppercase tracking-wider text-[#965b31] mb-2">Meet the Maker</p>
-                <h2 class="text-4xl font-[Satisfy] text-[#181510]">Amani’s Crochet Journey</h2>
-                <p class="mt-4 text-base leading-7 text-[#8a765c] font-pj max-w-xl md:max-w-none mx-auto md:mx-0">
+                <h2 class="text-4xl text-[#181510]" style='font-family: "Playfair Display", serif;'>
+                    Amani’s Crochet Journey
+                </h2>
+                <p class="mt-4 text-base leading-7 text-[#8a765c] max-w-xl md:max-w-none mx-auto md:mx-0">
                     Amani's passion for crochet began as a hobby and blossomed into a craft. Inspired by nature and everyday beauty,
                     she creates unique, handmade pieces that bring warmth and style to your life.
                 </p>
@@ -27,4 +28,3 @@
         </div>
     </div>
 </section>
-
