@@ -20,38 +20,62 @@
 @endsection
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="py-20 bg-brand-cream">
-        <div class="container mx-auto px-6 flex flex-col-reverse lg:flex-row items-center">
-            <div class="w-full lg:w-1/2 text-brand-brown font-sentient">
-                <h1 class="text-4xl md:text-5xl mb-4">Comfort through every stitch</h1>
-                <p class="mb-6 max-w-md">Carefully crafted by hand, our pieces express gentle beauty in its simplest form.</p>
-                <a href="#" class="inline-block px-6 py-3 bg-brand-brown text-white rounded-full font-medium hover:bg-brand-gold transition">
-                    Shop Now
-                </a>
-            </div>
-            <div class="w-full lg:w-1/2 mb-8 lg:mb-0 flex justify-center">
-                <img src="{{ asset('images/hero2.png') }}" alt="Fashion Illustration" class="w-full h-auto max-w-md" />
+    <!-- Hero Section for byAmani with shadow -->
+    <section class="px-6 md:px-20 py-12 bg-[#fbfaf9]" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
+        <div class="layout-content-container flex flex-col max-w-[960px] w-full mx-auto">
+            <div class="@container">
+                <div class="@[480px]:p-4">
+                    <div
+                        class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat items-start justify-end px-4 pb-10 @[480px]:px-10 rounded-2xl"
+                        style='
+                        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4)), url("{{ asset('images/hero 2.jpg') }}");
+                        box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+                                    rgba(17, 17, 26, 0.1) 0px 8px 24px,
+                                    rgba(17, 17, 26, 0.1) 0px 16px 48px;
+                    '
+                    >
+                        <!-- TEXT -->
+                        <div class="flex flex-col gap-2 text-left">
+                            <h1 class="text-white text-4xl font-bold leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black">
+                                Handmade Crochet with Love by Amani
+                            </h1>
+                            <h2 class="text-white text-sm @[480px]:text-base font-normal leading-normal">
+                                Discover unique, handcrafted crochet pieces made with passion and care. Each item is a testament to quality and personal touch.
+                            </h2>
+                        </div>
+
+                        <!-- CTA BUTTON -->
+                        <a href="#"
+                           class="flex min-w-[84px] max-w-[480px] items-center justify-center overflow-hidden rounded-xl h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-[#e0c6a3] text-[#181510] text-sm font-bold tracking-[0.015em] @[480px]:text-base @[480px]:font-bold">
+                            <span class="truncate">Shop Now</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
 
     <!-- Categories Section -->
-    <section class="py-16" style="background-color: #F4F1EC;">
+    <section class="py-16 bg-[#fbfaf9]" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-sentient font-semibold mb-8 text-center text-[#0D2F25]">
-                Shop by Categories
+            <h2 class="text-[#181510] text-[22px] font-bold leading-tight tracking-[-0.015em] text-center mb-8">
+                Featured Products
             </h2>
-            <div class="flex flex-wrap justify-center gap-8">
-                @foreach($categories as $cat)
-                    <x-polaroid-card :image="$cat->image" class="transform hover:scale-105 border-[#0D2F25]">
-                        <span class="text-[#0D2F25]">{{ $cat->name }}</span>
-                    </x-polaroid-card>
-                @endforeach
+
+            <div class="flex flex-wrap justify-center gap-6">
+                @forelse($featuredProducts as $product)
+                    <x-polaroid-card
+                        :product="$product"
+                        :image="asset('storage/' . $product->image)"
+                    />
+                @empty
+                    <p class="text-[#8a765c] text-center w-full">No featured products available.</p>
+                @endforelse
             </div>
         </div>
     </section>
+
 
 
     <!-- Top Selling Section -->
